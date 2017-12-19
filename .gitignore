@@ -1,0 +1,45 @@
+#test code with more test text more more test more more test more test
+.coverage
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# Misc
+*.swp
+*.vs
+release.properties
+pom.xml.releaseBackup
+pom.xml.tag
+
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+# Maven 
+target/
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+
+# OS
+.DS_Store
+/bin/

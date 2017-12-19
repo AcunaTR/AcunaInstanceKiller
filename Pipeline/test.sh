@@ -9,5 +9,5 @@ CURDIR=`pwd`
 
 docker run --rm \
            -v "${CURDIR}/:/test" \
-           --workdir /test/AcunaLambda \
+           --workdir /test/AcunaCode \
            maven:3.5.2-jdk-8 mvn test

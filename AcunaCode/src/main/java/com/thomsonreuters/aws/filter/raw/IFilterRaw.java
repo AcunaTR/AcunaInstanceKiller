@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thomsonreuters.aws.environment.ec2.request.filter;
+package com.thomsonreuters.aws.filter.raw;
+
+import com.amazonaws.services.ec2.model.Filter;
 
 /**
  *
  * @author U6067157
  */
-public interface IFilters {
-    void addFilter(IFilter filter);
+public interface IFilterRaw {
+    Filter getRaw();
 }

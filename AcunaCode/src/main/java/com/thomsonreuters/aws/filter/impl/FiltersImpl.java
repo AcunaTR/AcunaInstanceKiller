@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thomsonreuters.aws.environment.ec2.request.filter.impl;
+package com.thomsonreuters.aws.filter.impl;
 
 import com.amazonaws.services.ec2.model.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thomsonreuters.aws.environment.ec2.request.filter.IFilter;
-import com.thomsonreuters.aws.environment.ec2.request.filter.IFilters;
-import com.thomsonreuters.aws.environment.ec2.request.filter.raw.IFilterRaw;
-import com.thomsonreuters.aws.environment.ec2.request.filter.raw.IFiltersRaw;
+import com.thomsonreuters.aws.filter.IFilter;
+import com.thomsonreuters.aws.filter.IFilters;
+import com.thomsonreuters.aws.filter.raw.IFilterRaw;
+import com.thomsonreuters.aws.filter.raw.IFiltersRaw;
 
 /**
  *
@@ -26,7 +26,12 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
         _filters = new ArrayList<>();
     }
     
-    @Override
+    public FiltersImpl(List<IFilter> filters) {
+    	_filters = new ArrayList<>();
+    	filters.forEach(filter -> {addFilter(filter);});
+	}
+
+	@Override
     public void addFilter(IFilter filter) {
         IFilterRaw raw = (IFilterRaw)filter;
         _filters.add(raw.getRaw());

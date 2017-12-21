@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thomsonreuters.aws.environment.ec2.request.filter.impl;
+package com.thomsonreuters.aws.filter.impl;
 
 import com.amazonaws.services.ec2.model.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thomsonreuters.aws.environment.ec2.request.filter.IFilter;
-import com.thomsonreuters.aws.environment.ec2.request.filter.raw.IFilterRaw;
+import com.thomsonreuters.aws.filter.IFilter;
+import com.thomsonreuters.aws.filter.raw.IFilterRaw;
 
 /**
  *
@@ -21,13 +21,20 @@ public class FilterImpl implements IFilter, IFilterRaw {
     private final String _name;
     private final List<String> _values;
     
-    public FilterImpl(String name)
+    public FilterImpl(String name, String value)
     {
         _name = name;
         _values = new ArrayList<>();
+        _values.add(value);
     }
     
-    @Override
+    public FilterImpl(String name, List<String> values)
+    {
+        _name = name;
+        _values = values;
+    }
+
+	@Override
     public String getName() {
         return _name;
     }

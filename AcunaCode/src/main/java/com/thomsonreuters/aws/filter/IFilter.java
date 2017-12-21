@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thomsonreuters.aws.environment.ec2.request.ami;
+package com.thomsonreuters.aws.filter;
 
-import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import java.util.List;
 
 /**
  *
  * @author U6067157
  */
-public interface IDescribeAmisRequestRaw {
-    DescribeImagesRequest getRaw();
+public interface IFilter {
+    
+    String getName();
+    
+    void addValue(String value);
+    
+    List<String> getValues();
 }

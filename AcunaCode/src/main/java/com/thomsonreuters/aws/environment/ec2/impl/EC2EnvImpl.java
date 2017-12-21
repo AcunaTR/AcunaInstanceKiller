@@ -11,9 +11,9 @@ import com.thomsonreuters.aws.ami.IAmis;
 import com.thomsonreuters.aws.ami.impl.AmisImpl;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.ami.IDescribeAmisRequest;
-import com.thomsonreuters.aws.environment.ec2.request.ami.IDescribeAmisRequestRaw;
+import com.thomsonreuters.aws.environment.ec2.request.ami.raw.IDescribeAmisRequestRaw;
 import com.thomsonreuters.aws.environment.ec2.request.ec2.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.environment.ec2.request.ec2.IDescribeEC2sRequestRaw;
+import com.thomsonreuters.aws.environment.ec2.request.ec2.raw.IDescribeEC2sRequestRaw;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.aws.reservation.impl.ReservationsImpl;
 

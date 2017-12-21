@@ -5,7 +5,7 @@
  */
 package com.thomsonreuters.aws.environment.ec2.request.ami;
 
-import com.thomsonreuters.aws.environment.ec2.request.filter.IFilters;
+import com.thomsonreuters.aws.filter.IFilters;
 
 /**
  *

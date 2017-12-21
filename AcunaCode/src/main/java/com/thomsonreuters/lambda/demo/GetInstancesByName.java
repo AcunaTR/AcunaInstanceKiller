@@ -1,8 +1,5 @@
 package com.thomsonreuters.lambda.demo;
 
-import java.util.List;
-
-import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
@@ -10,11 +7,12 @@ import com.thomsonreuters.aws.filter.Filter;
 import com.thomsonreuters.aws.filter.IFilter;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
+import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
 
 public class GetInstancesByName {
 
-	public static IEC2s run(IEC2Env env, String serverName, IDescribeEC2sRequestFactory reqFactory) throws InvalidInstancesException {
+	public static IEC2s run(IEC2Env env, String serverName, IDescribeEC2sRequestFactory reqFactory) throws InvalidInstancesException, NoInstancesException {
 		IDescribeEC2sRequest req =  createRequest(reqFactory, serverName);
 		/*IReservations res = runApiCall(req, env);
 		IEC2s ec2s = parsingEC2s(res);

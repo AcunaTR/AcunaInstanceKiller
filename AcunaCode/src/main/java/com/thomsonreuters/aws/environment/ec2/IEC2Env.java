@@ -10,5 +10,4 @@ public interface IEC2Env  {
     IAmis describeAmis(IDescribeAmisRequest request);
 
     IReservations describeEC2s(IDescribeEC2sRequest request);
-
 }

@@ -11,4 +11,6 @@ package com.thomsonreuters.aws.filter;
  */
 public interface IFilters {
     void addFilter(IFilter filter);
+    IFilter getFilter(int idx);
+    void addAllFilters(IFilters filters);
 }

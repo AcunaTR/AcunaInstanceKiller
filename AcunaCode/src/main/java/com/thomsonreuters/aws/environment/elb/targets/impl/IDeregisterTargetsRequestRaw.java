@@ -4,6 +4,5 @@ import com.amazonaws.services.elasticloadbalancingv2.model.DeregisterTargetsRequ
 
 public interface IDeregisterTargetsRequestRaw {
 
-	DeregisterTargetsRequest getRaw();
-	
+    DeregisterTargetsRequest getRaw();	
 }

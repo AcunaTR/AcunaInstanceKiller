@@ -5,14 +5,14 @@ import com.thomsonreuters.aws.environment.elb.targets.IDescribeTargetGroupsReque
 
 public class DescribeTargetGroupsRequestImpl implements IDescribeTargetGroupsRequest, IDescribeTargetGroupsRequestRaw {
 
-	private final DescribeTargetGroupsRequest _req;
-	
-	public DescribeTargetGroupsRequestImpl() {
-		_req = new DescribeTargetGroupsRequest();
-	}
-	
-	@Override
-	public DescribeTargetGroupsRequest getRaw() {
-		return _req;
-	}
+    private final DescribeTargetGroupsRequest _req;
+
+    public DescribeTargetGroupsRequestImpl() {
+        _req = new DescribeTargetGroupsRequest();
+    }
+
+    @Override
+    public DescribeTargetGroupsRequest getRaw() {
+        return _req;
+    }
 }

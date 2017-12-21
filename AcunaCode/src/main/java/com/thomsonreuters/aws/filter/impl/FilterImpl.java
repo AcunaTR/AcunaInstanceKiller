@@ -33,6 +33,11 @@ public class FilterImpl implements IFilter, IFilterRaw {
         _values = values;
     }
 
+	public FilterImpl(Filter filter) {
+		_name = filter.getName();
+		_values = filter.getValues();
+	}
+
 	@Override
     public String getName() {
         return _name;

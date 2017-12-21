@@ -39,5 +39,16 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
     public List<Filter> getRaw() {
         return _filters;
     }
+
+	@Override
+	public IFilter getFilter(int idx) {
+		return new FilterImpl(_filters.get(idx));
+	}
+
+	@Override
+	public void addAllFilters(IFilters filters) {
+		IFiltersRaw raw = (IFiltersRaw) filters;
+		raw.getRaw().forEach(filter -> {_filters.add(filter);});
+	}
     
 }

@@ -6,6 +6,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.thomsonreuters.aws.environment.ec2.EC2Env;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
+import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
+import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
+import com.thomsonreuters.lambda.demo.factories.impl.DescribeEC2sRequestFactory;
 
 public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
@@ -13,9 +16,15 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
     public String handleRequest(Object input, Context context) {
         context.getLogger().log("Input: " + input);
         IEC2Env ec2Env = EC2Env.create();
+        IDescribeEC2sRequestFactory factory = new DescribeEC2sRequestFactory();
         //test
         // TODO: implement your handler
-        GetInstancesByName.run(ec2Env, "acuna.jenkins.server");
+        try {
+			GetInstancesByName.run(ec2Env, "acuna.jenkins.server", factory);
+		} catch (InvalidInstancesException e) {
+			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
+			return "Caught InvalidInstancesException - " + e.getMessage();
+		}
         
         
         

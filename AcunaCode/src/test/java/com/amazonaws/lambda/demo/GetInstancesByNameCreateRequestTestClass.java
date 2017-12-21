@@ -44,12 +44,26 @@ public class GetInstancesByNameCreateRequestTestClass {
 	}
 	
 	@Test
-	public void testAddCorrectFilter() {
+	public void testAddCorrectFilterValue() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
 			GetInstancesByName.run(null, "Tuesday", reqFactory);
-			Assert.assertEquals("Tuesday", reqFactory.  );
+			Assert.assertEquals(1, reqFactory.getFilters().size());
+			Assert.assertEquals("Tuesday", reqFactory.getFilters().get(0).getValues().get(0));
+		} catch (Exception e) {
+			fail("Unexpected exception - " + e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testAddCorrectFilterName() {
+		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
+		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
+		try {
+			GetInstancesByName.run(null, "Tuesday", reqFactory);
+			Assert.assertEquals(1, reqFactory.getFilters().size());
+			Assert.assertEquals("tag:Name", reqFactory.getFilters().get(0).getName());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}

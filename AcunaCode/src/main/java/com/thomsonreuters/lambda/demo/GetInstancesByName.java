@@ -6,6 +6,8 @@ import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
+import com.thomsonreuters.aws.filter.Filter;
+import com.thomsonreuters.aws.filter.IFilter;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
@@ -40,9 +42,8 @@ public class GetInstancesByName {
 	}
 
 	private static IDescribeEC2sRequest createRequest(IDescribeEC2sRequestFactory reqFactory, String serverName) {
-		reqFactory.addFilter(null);
-		
-		
+		IFilter filter = Filter.create("tag:Name", serverName);
+		reqFactory.addFilter(filter);
 		return reqFactory.createRequest();
 	}
 }

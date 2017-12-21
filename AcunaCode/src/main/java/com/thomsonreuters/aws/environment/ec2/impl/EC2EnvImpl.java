@@ -40,6 +40,4 @@ public class EC2EnvImpl implements IEC2Env {
         IDescribeEC2sRequestRaw raw = (IDescribeEC2sRequestRaw)request;
         return new ReservationsImpl(_ec2.describeInstances(raw.getRaw()).getReservations());
     }
-
 }
-

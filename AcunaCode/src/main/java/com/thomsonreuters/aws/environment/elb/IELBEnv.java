@@ -5,8 +5,7 @@ import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 
 public interface IELBEnv {
 
-	ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req);
-	
-	void deregisterTargets(IDeregisterTargetsRequest req);
-	
+    ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req);
+
+    void deregisterTargets(IDeregisterTargetsRequest req);	
 }

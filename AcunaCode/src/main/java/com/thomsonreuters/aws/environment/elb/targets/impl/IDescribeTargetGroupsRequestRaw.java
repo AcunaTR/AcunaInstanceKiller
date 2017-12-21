@@ -4,6 +4,5 @@ import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetGroupsR
 
 public interface IDescribeTargetGroupsRequestRaw {
 
-	DescribeTargetGroupsRequest getRaw();
-	
+    DescribeTargetGroupsRequest getRaw();	
 }

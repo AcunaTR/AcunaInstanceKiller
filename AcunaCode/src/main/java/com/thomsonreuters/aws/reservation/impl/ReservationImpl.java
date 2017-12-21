@@ -17,5 +17,4 @@ public class ReservationImpl implements IReservation {
     public IEC2s getInstances() {
         return new EC2sImpl(_res.getInstances());
     }
-
 }

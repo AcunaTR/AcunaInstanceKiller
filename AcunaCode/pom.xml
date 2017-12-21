@@ -69,7 +69,12 @@
     <dependency>
     	<groupId>com.amazonaws</groupId>
     	<artifactId>aws-java-sdk-ec2</artifactId>
-    	<version>1.11.250</version>
+    	<version>1.11.250</version><!--$NO-MVN-MAN-VER$-->
+    </dependency>
+    <dependency>
+    	<groupId>com.amazonaws</groupId>
+    	<artifactId>aws-java-sdk-elasticloadbalancingv2</artifactId>
+    	<version>1.11.252</version>
     </dependency>
   </dependencies>
 </project>

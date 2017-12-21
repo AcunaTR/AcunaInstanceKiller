@@ -26,11 +26,11 @@ public class TagImpl implements ITag {
 	
     @Override
     public String getName() {
-            return _tag.getKey();
+        return _tag.getKey();
     }
 
     @Override
     public String getValue() {
-            return _tag.getValue();
+        return _tag.getValue();
     }
 }

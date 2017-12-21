@@ -11,8 +11,6 @@ import java.util.List;
 
 import com.thomsonreuters.aws.filter.IFilter;
 import com.thomsonreuters.aws.filter.IFilters;
-import com.thomsonreuters.aws.filter.raw.IFilterRaw;
-import com.thomsonreuters.aws.filter.raw.IFiltersRaw;
 
 /**
  *

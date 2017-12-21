@@ -3,7 +3,7 @@ package com.thomsonreuters.aws.ec2;
 
 public interface IEC2s {
 
-	int size();
+    int size();
     
     boolean isEmpty();
     

@@ -7,15 +7,15 @@ import com.thomsonreuters.aws.reservation.IReservation;
 
 public class ReservationImpl implements IReservation {
 
-	private final Reservation _res;
-	
-	public ReservationImpl(Reservation reservation) {
-		_res = reservation;
-	}
+    private final Reservation _res;
 
-	@Override
-	public IEC2s getInstances() {
-		return new EC2sImpl(_res.getInstances());
-	}
+    public ReservationImpl(Reservation reservation) {
+        _res = reservation;
+    }
+
+    @Override
+    public IEC2s getInstances() {
+        return new EC2sImpl(_res.getInstances());
+    }
 
 }

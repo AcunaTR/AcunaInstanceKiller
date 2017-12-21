@@ -5,10 +5,10 @@ import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 
 public class TargetGroupImpl implements ITargetGroup {
 
-	private final TargetGroup _targetGroup;
-	
-	public TargetGroupImpl(TargetGroup targetGroup) {
-		_targetGroup = targetGroup;
-	}
+    private final TargetGroup _targetGroup;
+
+    public TargetGroupImpl(TargetGroup targetGroup) {
+        _targetGroup = targetGroup;
+    }
 
 }

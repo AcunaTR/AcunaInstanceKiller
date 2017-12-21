@@ -16,27 +16,26 @@ import com.thomsonreuters.aws.tag.impl.TagsImpl;
  */
 public class AmiImpl implements IAmi {
 
-	private final Image _ami;
-	
-	public AmiImpl(Image ami) {
-            _ami = ami;
-	}
+    private final Image _ami;
+
+    public AmiImpl(Image ami) {
+        _ami = ami;
+    }
 	
     @Override
-	public String getImageId() {
-		
-            return _ami.getImageId();
-	}
+    public String getImageId() {
+        return _ami.getImageId();
+    }
 
     @Override
-	public ITags getTags() {
-            return new TagsImpl(_ami.getTags());
-	}
+    public ITags getTags() {
+        return new TagsImpl(_ami.getTags());
+    }
 	
     @Override
-	public String getImageName() {
-            return _ami.getName();
-	}
+    public String getImageName() {
+        return _ami.getName();
+    }
     
     
 }

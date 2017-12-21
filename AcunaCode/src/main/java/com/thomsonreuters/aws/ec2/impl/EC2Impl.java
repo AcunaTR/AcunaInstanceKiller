@@ -11,41 +11,39 @@ import com.thomsonreuters.aws.tag.impl.TagsImpl;
 
 public class EC2Impl implements IEC2{
 
-	private final Instance _ec2;
-	
-	public EC2Impl(Instance instance) {
-		_ec2 = instance;
-	}
+    private final Instance _ec2;
 
-	@Override
-	public String getInstanceID() {
-		return _ec2.getInstanceId();
-	}
+    public EC2Impl(Instance instance) {
+        _ec2 = instance;
+    }
 
-	@Override
-	public ITags getTags() {
-		return new TagsImpl(_ec2.getTags());
-	}
+    @Override
+    public String getInstanceID() {
+        return _ec2.getInstanceId();
+    }
 
-	@Override
-	public Date getLaunchTime() {
-		return _ec2.getLaunchTime();
-	}
+    @Override
+    public ITags getTags() {
+        return new TagsImpl(_ec2.getTags());
+    }
 
-	@Override
-	public String getImageID() {
-		return _ec2.getImageId();
-	}
+    @Override
+    public Date getLaunchTime() {
+        return _ec2.getLaunchTime();
+    }
 
-	@Override
-	public String getInstanceType() {
-		return _ec2.getInstanceType();
-	}
+    @Override
+    public String getImageID() {
+        return _ec2.getImageId();
+    }
 
-	@Override
-	public IInstanceProfile getIamInstanceProfile() {
-		return new InstanceProfileImpl(_ec2.getIamInstanceProfile());
-	}
-	
+    @Override
+    public String getInstanceType() {
+        return _ec2.getInstanceType();
+    }
 
+    @Override
+    public IInstanceProfile getIamInstanceProfile() {
+        return new InstanceProfileImpl(_ec2.getIamInstanceProfile());
+    }	
 }

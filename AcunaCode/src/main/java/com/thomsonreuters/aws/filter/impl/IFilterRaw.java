@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thomsonreuters.aws.ami;
+package com.thomsonreuters.aws.filter.impl;
 
-import com.thomsonreuters.aws.tag.ITags;
+import com.amazonaws.services.ec2.model.Filter;
 
 /**
  *
  * @author U6067157
  */
-public interface IAmi {
-    String getImageId();
-    
-    ITags getTags();
-    
-    String getImageName();
+public interface IFilterRaw {
+    Filter getRaw();
 }

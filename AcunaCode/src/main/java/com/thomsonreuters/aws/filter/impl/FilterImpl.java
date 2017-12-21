@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thomsonreuters.aws.filter.IFilter;
-import com.thomsonreuters.aws.filter.raw.IFilterRaw;
 
 /**
  *

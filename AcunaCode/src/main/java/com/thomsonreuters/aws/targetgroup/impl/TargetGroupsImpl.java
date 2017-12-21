@@ -8,25 +8,24 @@ import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 
 public class TargetGroupsImpl implements ITargetGroups {
 
-	private final List<TargetGroup> _targetGroups;
-	
-	public TargetGroupsImpl(List<TargetGroup> list) {
-		_targetGroups = list;
-	}
+    private final List<TargetGroup> _targetGroups;
 
-	@Override
-	public int size() {
-		return _targetGroups.size();
-	}
+    public TargetGroupsImpl(List<TargetGroup> list) {
+        _targetGroups = list;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return _targetGroups.isEmpty();
-	}
+    @Override
+    public int size() {
+        return _targetGroups.size();
+    }
 
-	@Override
-	public ITargetGroup get(int idx) {
-		return new TargetGroupImpl(_targetGroups.get(idx));
-	}
+    @Override
+    public boolean isEmpty() {
+        return _targetGroups.isEmpty();
+    }
 
+    @Override
+    public ITargetGroup get(int idx) {
+        return new TargetGroupImpl(_targetGroups.get(idx));
+    }
 }

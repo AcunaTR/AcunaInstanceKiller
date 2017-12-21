@@ -8,25 +8,25 @@ import com.thomsonreuters.aws.reservation.IReservations;
 
 public class ReservationsImpl implements IReservations {
 
-	private final List<Reservation> _resList;
-	
-	public ReservationsImpl(List<Reservation> reservations) {
-		_resList = reservations;
-	}
+    private final List<Reservation> _resList;
 
-	@Override
-	public int size() {
-		return _resList.size();
-	}
+    public ReservationsImpl(List<Reservation> reservations) {
+        _resList = reservations;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return _resList.isEmpty();
-	}
+    @Override
+    public int size() {
+        return _resList.size();
+    }
 
-	@Override
-	public IReservation get(int idx) {
-		return new ReservationImpl(_resList.get(idx));
-	}
+    @Override
+    public boolean isEmpty() {
+        return _resList.isEmpty();
+    }
+
+    @Override
+    public IReservation get(int idx) {
+        return new ReservationImpl(_resList.get(idx));
+    }
 
 }

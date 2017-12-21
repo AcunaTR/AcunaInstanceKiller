@@ -5,15 +5,15 @@
  */
 package com.thomsonreuters.aws.environment.ec2.impl;
 
+import com.thomsonreuters.aws.environment.ec2.request.impl.IDescribeEC2sRequestRaw;
+import com.thomsonreuters.aws.environment.ec2.request.impl.IDescribeAmisRequestRaw;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
 import com.thomsonreuters.aws.ami.IAmis;
 import com.thomsonreuters.aws.ami.impl.AmisImpl;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
-import com.thomsonreuters.aws.environment.ec2.request.ami.IDescribeAmisRequest;
-import com.thomsonreuters.aws.environment.ec2.request.ami.raw.IDescribeAmisRequestRaw;
-import com.thomsonreuters.aws.environment.ec2.request.ec2.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.environment.ec2.request.ec2.raw.IDescribeEC2sRequestRaw;
+import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
+import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.aws.reservation.impl.ReservationsImpl;
 
@@ -35,12 +35,11 @@ public class EC2EnvImpl implements IEC2Env {
         return new AmisImpl(_ec2.describeImages(raw.getRaw()).getImages());
     }
 
-
-	    @Override
-	    public IReservations describeEC2s(IDescribeEC2sRequest request) {
-	        IDescribeEC2sRequestRaw raw = (IDescribeEC2sRequestRaw)request;
-	        return new ReservationsImpl(_ec2.describeInstances(raw.getRaw()).getReservations());
-	    }
+    @Override
+    public IReservations describeEC2s(IDescribeEC2sRequest request) {
+        IDescribeEC2sRequestRaw raw = (IDescribeEC2sRequestRaw)request;
+        return new ReservationsImpl(_ec2.describeInstances(raw.getRaw()).getReservations());
+    }
 
 }
 

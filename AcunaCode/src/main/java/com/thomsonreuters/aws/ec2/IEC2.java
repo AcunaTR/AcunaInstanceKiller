@@ -7,15 +7,15 @@ import com.thomsonreuters.aws.tag.ITags;
 
 public interface IEC2 {
 
-	public String getInstanceID();
-	
-	public ITags getTags();
-	
-	public Date getLaunchTime();
-	
-	public String getImageID();
-	
-	public String getInstanceType();
-	
-	public IInstanceProfile getIamInstanceProfile();
+    public String getInstanceID();
+
+    public ITags getTags();
+
+    public Date getLaunchTime();
+
+    public String getImageID();
+
+    public String getInstanceType();
+
+    public IInstanceProfile getIamInstanceProfile();
 }

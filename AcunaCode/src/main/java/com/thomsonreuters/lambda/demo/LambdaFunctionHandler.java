@@ -21,15 +21,15 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         //test
         // TODO: implement your handler
         
-        IEC2Env ec2Env = EC2Env.create();
+       /* IEC2Env ec2Env = EC2Env.create();
         IDescribeAmisRequest req = DescribeAmisRequest.create();
         IFilter filter = Filter.create("tag:tr-latest", "True");
         IFilter filter2 = Filter.create("tag:tr-supported", "True");
         req.setFilters(Filters.create(Arrays.asList(filter, filter2)));
-        IAmis amis = ec2Env.describeAmis(req);
+        IAmis amis = ec2Env.describeAmis(req);*/
         
-        return amis.toString();
-        
+        //return amis.toString();
+        return "hello";
 
     }    
 }

@@ -11,8 +11,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         //test
         // TODO: implement your handler
         return "Hello again from Lambda!";
-    }
+        
 
-   // public void 
-    
+    }    
 }

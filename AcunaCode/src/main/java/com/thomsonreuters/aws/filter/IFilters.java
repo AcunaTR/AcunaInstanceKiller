@@ -5,6 +5,8 @@
  */
 package com.thomsonreuters.aws.filter;
 
+import java.util.List;
+
 /**
  *
  * @author U6067157
@@ -12,5 +14,6 @@ package com.thomsonreuters.aws.filter;
 public interface IFilters {
     void addFilter(IFilter filter);
     IFilter getFilter(int idx);
+    List<IFilter> getFilters();
     void addAllFilters(IFilters filters);
 }

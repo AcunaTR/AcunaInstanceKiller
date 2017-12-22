@@ -22,8 +22,7 @@ public class EC2Stub implements IEC2 {
 
 	@Override
 	public ITags getTags() {
-		// TODO Auto-generated method stub
-		return null;
+		return _name;
 	}
 
 	@Override

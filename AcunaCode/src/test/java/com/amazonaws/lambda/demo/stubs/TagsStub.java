@@ -13,19 +13,22 @@ public class TagsStub implements ITags {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public ITag get(int idx) {
+	public ITag getTag(String key) {
 		return _tag;
+	}
+
+	@Override
+	public String getValue(String key) {
+		return _tag.getValue();
 	}
 
 }

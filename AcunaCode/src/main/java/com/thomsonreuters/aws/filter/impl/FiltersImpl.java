@@ -29,7 +29,7 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
     	filters.forEach(filter -> {addFilter(filter);});
 	}
 
-	@Override
+    @Override
     public void addFilter(IFilter filter) {
         IFilterRaw raw = (IFilterRaw)filter;
         _filters.add(raw.getRaw());
@@ -40,15 +40,21 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
         return _filters;
     }
 
-	@Override
-	public IFilter getFilter(int idx) {
-		return new FilterImpl(_filters.get(idx));
-	}
+    @Override
+    public IFilter getFilter(int idx) {
+        return new FilterImpl(_filters.get(idx));
+    }
 
-	@Override
-	public void addAllFilters(IFilters filters) {
-		IFiltersRaw raw = (IFiltersRaw) filters;
-		raw.getRaw().forEach(filter -> {_filters.add(filter);});
-	}
-    
+    @Override
+    public void addAllFilters(IFilters filters) {
+        IFiltersRaw raw = (IFiltersRaw) filters;
+        raw.getRaw().forEach(filter -> {_filters.add(filter);});
+    }
+
+    @Override
+    public List<IFilter> getFilters() {
+        List<IFilter> filters = new ArrayList<>();
+        _filters.forEach(filter -> filters.add(new FilterImpl(filter)));
+        return filters;
+    }
 }

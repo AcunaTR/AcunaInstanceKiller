@@ -2,6 +2,10 @@ package com.amazonaws.lambda.demo.getinstancesbyname;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,95 +20,128 @@ import com.amazonaws.lambda.demo.stubs.ReservationsStub;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.reservation.IReservation;
-import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
+import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 
-
-public class CreateRequestTestClass {
+public class CheckEC2sTestClass {
 
 	@Before
 	public void setUp() throws Exception {
 	}
 
 	@Test
-	public void testCreateRequestObject() {
+	public void testNoEC2sNull() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		
-		IEC2 ec2 = new EC2Stub("random.server.name");
-		EC2sStub ec2s = new EC2sStub(ec2);
-		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationStub reservation = new ReservationStub(null);
 		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
-		
+			
 		try {
 			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
-			Assert.assertEquals(1, reqFactory.getCreateRequestCallCount());
+			fail("Expected 'Empty Reservation' exception not thrown " );
+		} catch (EmptyReservationException e) {
+			Assert.assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
 	}
 
 	@Test
-	public void testAddFiltersCalled() {
+	public void testNoEC2sEmptyList() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		
 		IEC2 ec2 = new EC2Stub("random.server.name");
-		EC2sStub ec2s = new EC2sStub(ec2);
+		EC2sStub ec2s = new EC2sStub(new ArrayList<>());
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
-		
+
 		try {
 			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
-			Assert.assertEquals(1, reqFactory.getSetFilterorFiltersCount());
+			fail("Expected 'Empty Reservation' exception not thrown " );
+		} catch (EmptyReservationException e) {
+			Assert.assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
+		
 	}
 	
 	@Test
-	public void testAddCorrectFilterValue() {
+	public void testCheckOneEC2() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		
 		IEC2 ec2 = new EC2Stub("random.server.name");
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
-		
+
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
-			Assert.assertEquals(1, reqFactory.getFilters().size());
-			Assert.assertEquals("random.server.name", reqFactory.getFilters().get(0).getValues().get(0));
-		} catch (Exception e) {
+			IEC2s ec2Result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			Assert.assertEquals(1, ec2Result.size());
+			Assert.assertEquals(ec2, ec2Result.get(0));
+			
+		}catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
+		
 	}
 	
+	
+	
 	@Test
-	public void testAddCorrectFilterName() {
+	public void testCheckOneInvalidEC2() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("otherrandom.server.name");
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
+
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
-			Assert.assertEquals(1, reqFactory.getFilters().size());
-			Assert.assertEquals("tag:Name", reqFactory.getFilters().get(0).getName());
-		} catch (Exception e) {
+			IEC2s ec2Result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			fail("expected exception - InvalidInstancesException");
+		}catch (InvalidInstancesException e) {
+			Assert.assertTrue(true);
+		}catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
+		
+	}
+	
+	
+	
+	@Test
+	public void testCheckSeveralValidEC2s() {
+		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
+		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
+		IEC2 ec2a = new EC2Stub("random.server.name");
+		IEC2 ec2b = new EC2Stub("random.server.name");
+		IEC2 ec2c = new EC2Stub("random.server.name");
+		List<IEC2> collectionEc2s = Arrays.asList(ec2a,ec2b,ec2c);
+		EC2sStub ec2s = new EC2sStub(collectionEc2s);
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
+		
+		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
+
+		try {
+			IEC2s ec2Result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			Assert.assertEquals(3, ec2Result.size());
+			for (int i=0; i<ec2Result.size(); i++) {			
+				Assert.assertTrue(ec2Result.contains(collectionEc2s.get(i)));
+			}
+		}catch (Exception e) {
+			fail("Unexpected exception - " + e.getMessage());
+		}
+		
 	}
 }

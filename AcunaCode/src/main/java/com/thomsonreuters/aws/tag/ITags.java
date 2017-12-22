@@ -14,5 +14,8 @@ public interface ITags {
     
     boolean isEmpty();
     
-    ITag get(int idx);
+    ITag getTag(String key);
+    
+    String getValue(String key);
+    
 }

@@ -12,4 +12,6 @@ public interface IEC2s {
     void addAll(IEC2s ec2s);
     
     IEC2s clone();
+    
+    boolean contains(IEC2 ec2);
 }

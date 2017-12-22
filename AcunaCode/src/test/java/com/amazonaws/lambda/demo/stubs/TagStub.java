@@ -4,7 +4,7 @@ import com.thomsonreuters.aws.tag.ITag;
 
 public class TagStub implements ITag {
 
-	private final String _name = "Name";
+	private final String _name = "tag:Name";
 	private String _value;
 	
 	public TagStub(String name) {

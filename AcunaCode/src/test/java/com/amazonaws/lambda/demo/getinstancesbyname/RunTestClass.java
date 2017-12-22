@@ -22,6 +22,7 @@ import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 
@@ -47,7 +48,7 @@ public class RunTestClass {
 		try {
 			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, result.size());
-			Assert.assertEquals("random.server.name", result.get(0).getTags().get(0).getValue());
+			Assert.assertEquals("random.server.name", result.get(0).getTags().getValue("tag:Name"));
 			
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
@@ -74,7 +75,7 @@ public class RunTestClass {
 			Assert.assertEquals(3, result.size());
 			
 			for(int i=0; i<result.size(); i++) {
-				Assert.assertEquals("random.server.name", result.get(i).getTags().get(0).getValue());
+				Assert.assertEquals("random.server.name", result.get(i).getTags().getValue("tag:Name"));
 			}
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
@@ -95,7 +96,7 @@ public class RunTestClass {
 			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Instances' exception not thrown " );
 		}
-		catch (NoInstancesException e) {
+		catch (EmptyReservationException e) {
 			Assert.assertTrue(true);			
 		}
 		catch (Exception e) {
@@ -146,11 +147,8 @@ public class RunTestClass {
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
 			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
-			Assert.assertEquals(1, result.size());
-			
-			for(int i=0; i<result.size(); i++) {
-				Assert.assertEquals("random.server.name", result.get(i).getTags().get(0).getValue());
-			}
+		}catch(InvalidInstancesException e) {
+			Assert.assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}

@@ -9,7 +9,7 @@ import com.thomsonreuters.aws.iam.instanceprofile.impl.InstanceProfileImpl;
 import com.thomsonreuters.aws.tag.ITags;
 import com.thomsonreuters.aws.tag.impl.TagsImpl;
 
-public class EC2Impl implements IEC2{
+public class EC2Impl implements IEC2, IEC2Raw {
 
     private final Instance _ec2;
 
@@ -49,5 +49,10 @@ public class EC2Impl implements IEC2{
     @Override
     public IInstanceProfile getIamInstanceProfile() {
         return new InstanceProfileImpl(_ec2.getIamInstanceProfile());
-    }	
+    }
+
+	@Override
+	public Instance getRaw() {
+		return _ec2;
+	}	
 }

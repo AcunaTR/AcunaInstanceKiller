@@ -52,5 +52,10 @@ public class EC2sStub implements IEC2s{
 		return _ec2s;
 	}
 
+	@Override
+	public boolean contains(IEC2 ec2) {
+		return _ec2s.contains(ec2);
+	}
+
 	
 }

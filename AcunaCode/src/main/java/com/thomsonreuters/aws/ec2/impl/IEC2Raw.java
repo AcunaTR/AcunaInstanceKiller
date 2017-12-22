@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.amazonaws.services.ec2.model.Instance;
 
-public interface IEC2sRaw {
+public interface IEC2Raw {
+	Instance getRaw();
 
-    List<Instance> getRaw();	
 }

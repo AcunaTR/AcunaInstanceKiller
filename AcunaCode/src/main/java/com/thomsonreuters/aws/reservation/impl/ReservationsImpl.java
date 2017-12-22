@@ -28,5 +28,4 @@ public class ReservationsImpl implements IReservations {
     public IReservation get(int idx) {
         return new ReservationImpl(_resList.get(idx));
     }
-
 }

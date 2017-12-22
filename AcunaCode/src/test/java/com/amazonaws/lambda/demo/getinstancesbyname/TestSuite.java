@@ -12,7 +12,8 @@ import org.junit.runners.Suite;
 	CreateRequestTestClass.class,
 	RunAPICallTestClass.class,
 	RunTestClass.class,
-	ParsingResultTestClass.class
+	ParsingResultTestClass.class,
+	CheckEC2sTestClass.class
 })
 
 public class TestSuite {

@@ -34,11 +34,11 @@ public class EC2sImpl implements IEC2s, IEC2sRaw {
         return new EC2Impl(_ec2s.get(idx));
     }
 
-	@Override
-	public void addAll(IEC2s ec2s) {
-		IEC2sRaw raw = (IEC2sRaw) ec2s;
-		_ec2s.addAll(raw.getRaw());
-	}
+    @Override
+    public void addAll(IEC2s ec2s) {
+        IEC2sRaw raw = (IEC2sRaw) ec2s;
+        _ec2s.addAll(raw.getRaw());
+    }
 
 	@Override
 	public List<Instance> getRaw() {
@@ -51,4 +51,11 @@ public class EC2sImpl implements IEC2s, IEC2sRaw {
 		newList.addAll(_ec2s);
 		return new EC2sImpl(newList);
 	}
+
+	@Override
+	public boolean contains(IEC2 ec2) {
+		IEC2Raw raw = (IEC2Raw) ec2;
+		return _ec2s.contains(raw.getRaw());
+	}
+
 }

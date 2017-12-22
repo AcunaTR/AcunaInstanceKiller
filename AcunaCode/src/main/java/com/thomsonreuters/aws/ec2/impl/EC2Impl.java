@@ -17,7 +17,11 @@ public class EC2Impl implements IEC2{
         _ec2 = instance;
     }
 
-    @Override
+    public EC2Impl() {
+		_ec2 = new Instance();
+	}
+
+	@Override
     public String getInstanceID() {
         return _ec2.getInstanceId();
     }

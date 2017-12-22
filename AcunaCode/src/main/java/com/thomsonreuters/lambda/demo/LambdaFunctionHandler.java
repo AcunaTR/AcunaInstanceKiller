@@ -4,8 +4,10 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.thomsonreuters.aws.environment.ec2.EC2Env;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
+import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
+import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.impl.DescribeEC2sRequestFactory;
 
@@ -19,13 +21,24 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         //test
         // TODO: implement your handler
         try {
-			GetInstancesByName.run(ec2Env, "acuna.jenkins.server", factory);
-		} catch (InvalidInstancesException e) {
+			
+        	
+        	GetInstancesByName.run(ec2Env, "acuna.jenkins.server", factory);
+		
+        
+        
+        } catch (InvalidInstancesException e) {
 			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
 			return "Caught InvalidInstancesException - " + e.getMessage();
 		} catch (NoInstancesException e) {
 			context.getLogger().log("Caught NoInstancesException - " + e.getMessage());
 			return "Caught NoInstancesException - " + e.getMessage();
+		} catch (EmptyReservationException e) {
+			context.getLogger().log("Caught EmptyReservationException - " + e.getMessage());
+			return "Caught EmptyReservationException - " + e.getMessage();
+		} catch (NoReservationException e) {
+			context.getLogger().log("Caught NoReservationException - " + e.getMessage());
+			return "Caught NoReservationException - " + e.getMessage();
 		}
         
         

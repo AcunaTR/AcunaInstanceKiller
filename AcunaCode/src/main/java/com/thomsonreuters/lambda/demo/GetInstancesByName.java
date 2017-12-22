@@ -1,5 +1,6 @@
 package com.thomsonreuters.lambda.demo;
 
+import com.thomsonreuters.aws.ec2.EC2s;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
@@ -43,9 +44,16 @@ public class GetInstancesByName {
 		if ((res == null) || (res.isEmpty())) {
 			throw new NoReservationException("No reservations found");
 		}
-		IEC2s fullList = EC2s.create();
-		for (int i = 0; i <res.size(); i++) {
-			IEC2s ec2s = res.get(i).getInstances();
+		
+		IEC2s ec2s = res.get(0).getInstances();
+		if ((ec2s == null) || (ec2s.isEmpty())) {
+			throw new EmptyReservationException("Reservation contains no instances");
+		}
+		
+		IEC2s fullList = ec2s.clone();
+		
+		for (int i = 1; i <res.size(); i++) {
+			ec2s = res.get(i).getInstances();
 			if ((ec2s == null) || (ec2s.isEmpty())) {
 				throw new EmptyReservationException("Reservation contains no instances");
 			}

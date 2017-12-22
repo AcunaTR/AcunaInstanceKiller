@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo;
+package com.amazonaws.lambda.demo.getinstancesbyname;
 
 import static org.junit.Assert.fail;
 
@@ -25,7 +25,7 @@ import com.thomsonreuters.lambda.demo.GetInstancesByName;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 
-public class GetInstancesByNameRunTestClass {
+public class RunTestClass {
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,8 +37,8 @@ public class GetInstancesByNameRunTestClass {
 		IEC2 ec2 = new EC2Stub("random.server.name");
 		IEC2s ec2s = new EC2sStub(ec2);
 		
-		IReservation reservation = new ReservationStub(ec2s);
-		IReservations reservations = new ReservationsStub(reservation);
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		IEC2Env ec2Env = new EC2EnvStub(reservations);
 		
@@ -62,8 +62,8 @@ public class GetInstancesByNameRunTestClass {
 		IEC2 ec2c = new EC2Stub("random.server.name");
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
-		IReservation reservation = new ReservationStub(ec2s);
-		IReservations reservations = new ReservationsStub(reservation);
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		IEC2Env ec2Env = new EC2EnvStub(reservations);
 		
@@ -86,7 +86,8 @@ public class GetInstancesByNameRunTestClass {
 	public void testRunNoEC2s() {
 		//IEC2s ec2s = new EC2sStub(new ArrayList<>());
 		//IReservation reservation = new ReservationStub(ec2s);
-		IReservations reservations = new ReservationsStub(new ArrayList<>());
+		ReservationStub reservation = new ReservationStub(null);
+		ReservationsStub reservations = new ReservationsStub(reservation);
 		IEC2Env ec2Env = new EC2EnvStub(reservations);
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
@@ -110,8 +111,8 @@ public class GetInstancesByNameRunTestClass {
 		IEC2 ec2c = new EC2Stub("21");
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
-		IReservation reservation = new ReservationStub(ec2s);
-		IReservations reservations = new ReservationsStub(reservation);
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		IEC2Env ec2Env = new EC2EnvStub(reservations);
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
@@ -136,8 +137,8 @@ public class GetInstancesByNameRunTestClass {
 		IEC2 ec2d = new EC2Stub("random.server.name ");
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
-		IReservation reservation = new ReservationStub(ec2s);
-		IReservations reservations = new ReservationsStub(reservation);
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
 		
 		IEC2Env ec2Env = new EC2EnvStub(reservations);
 		

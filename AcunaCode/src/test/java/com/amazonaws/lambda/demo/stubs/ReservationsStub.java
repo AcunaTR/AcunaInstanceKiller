@@ -8,15 +8,18 @@ import com.thomsonreuters.aws.reservation.IReservations;
 
 public class ReservationsStub implements IReservations {
 
-	private List<IReservation> _res;
+	private List<ReservationStub> _res;
+	private int _getReservationCounter;
 	
-	public ReservationsStub(IReservation reservation) {
+	public ReservationsStub(ReservationStub reservation) {
 		_res = new ArrayList<>();	
 		_res.add(reservation);
+		_getReservationCounter = 0;
 	}
 
-	public ReservationsStub(List<IReservation> reservations) {
-		_res = reservations;		
+	public ReservationsStub(List<ReservationStub> reservations) {
+		_res = reservations;	
+		_getReservationCounter = 0;
 	}
 
 	@Override
@@ -31,7 +34,15 @@ public class ReservationsStub implements IReservations {
 
 	@Override
 	public IReservation get(int idx) {
+		_getReservationCounter++;
 		return _res.get(idx);
 	}
-
+	
+	public int get_getReservationCounter() {
+			return _getReservationCounter;
+		}
+	
+	public List<ReservationStub> getReservations(){
+		return _res;
+	}
 }

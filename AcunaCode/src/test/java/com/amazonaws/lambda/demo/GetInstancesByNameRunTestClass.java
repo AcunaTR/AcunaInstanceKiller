@@ -31,7 +31,7 @@ public class GetInstancesByNameRunTestClass {
 	public void setUp() throws Exception {
 		
 	}
-/*
+
 	@Test
 	public void testRunOneValidEC2() {
 		IEC2 ec2 = new EC2Stub("random.server.name");
@@ -153,5 +153,5 @@ public class GetInstancesByNameRunTestClass {
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
-	}*/
+	}
 }

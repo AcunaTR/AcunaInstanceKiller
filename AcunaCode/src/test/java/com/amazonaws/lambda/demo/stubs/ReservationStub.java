@@ -24,4 +24,10 @@ public class ReservationStub implements IReservation {
 		return _getInstancesCounter;
 	}
 
+	public int removeOneInstance() {
+		_getInstancesCounter = _getInstancesCounter - 1;
+		return _getInstancesCounter;
+		
+	}
+
 }

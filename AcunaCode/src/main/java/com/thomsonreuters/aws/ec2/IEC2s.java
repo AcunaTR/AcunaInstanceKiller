@@ -14,4 +14,6 @@ public interface IEC2s {
     IEC2s clone();
     
     boolean contains(IEC2 ec2);
+
+
 }

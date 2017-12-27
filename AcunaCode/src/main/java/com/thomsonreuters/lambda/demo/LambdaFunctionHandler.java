@@ -1,5 +1,8 @@
 package com.thomsonreuters.lambda.demo;
 
+import java.util.List;
+
+import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.thomsonreuters.aws.environment.ec2.EC2Env;
@@ -23,7 +26,8 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         try {
 			
         	
-        	GetInstancesByName.run(ec2Env, "acuna.jenkins.server", factory);
+        	InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
+        	// ? List<Instance> instances 
 		
         
         
@@ -40,6 +44,9 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			context.getLogger().log("Caught NoReservationException - " + e.getMessage());
 			return "Caught NoReservationException - " + e.getMessage();
 		}
+        
+        
+        // OldServer.identify(buffer, instances)
         
         
         

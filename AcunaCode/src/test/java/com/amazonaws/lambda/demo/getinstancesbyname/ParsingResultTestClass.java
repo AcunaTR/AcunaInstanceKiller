@@ -19,7 +19,7 @@ import com.amazonaws.lambda.demo.stubs.ReservationsStub;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
-import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.InstanceHandler;
 import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
 
@@ -39,7 +39,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 			
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'Empty Reservation' exception not thrown " );
 		} catch (EmptyReservationException e) {
 			Assert.assertTrue(true);
@@ -60,7 +60,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			
 			ReservationsStub resList = (ReservationsStub) ec2Env.getReservations();
 			Assert.assertEquals(1, resList.get_getReservationCounter());
@@ -71,10 +71,38 @@ public class ParsingResultTestClass {
 		}catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
-		
-		
-	
 	}
+	
+	@Test
+	public void testOneReservationForcedEmpty() {
+		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
+		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
+		IEC2 ec2 = new EC2Stub("random.server.name");
+		EC2sStub ec2s = new EC2sStub(ec2);
+		ec2s.clear();
+		ReservationStub reservation = new ReservationStub(ec2s);
+		ReservationsStub reservations = new ReservationsStub(reservation);
+		
+		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
+
+		try {
+			
+			
+			ReservationsStub resList = (ReservationsStub) ec2Env.getReservations();
+			resList.getReservations().get(0).removeOneInstance();
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			Assert.assertEquals(1, resList.get_getReservationCounter());
+			
+			ReservationStub res = resList.getReservations().get(0);
+			Assert.assertEquals(0, res.get_getInstancesCounter());  // should throw empty res excet
+			fail("Expected 'Empty Reservation' exception not thrown " );
+			} catch (EmptyReservationException e) {
+				Assert.assertTrue(true);
+			} catch (Exception e) {
+				fail("Unexpected exception - " + e.getMessage());
+			}
+				
+		}
 	
 	@Test
 	public void testOneReservationMultipleInstances() {
@@ -91,7 +119,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			
 			ReservationsStub resList = (ReservationsStub) ec2Env.getReservations();
 			Assert.assertEquals(1, resList.get_getReservationCounter());
@@ -115,7 +143,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(null);
 			
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Reservation' exception not thrown " );
 		} catch (NoReservationException e) {
 			Assert.assertTrue(true);
@@ -142,7 +170,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			
 			ReservationsStub resList = (ReservationsStub) ec2Env.getReservations();
 			Assert.assertEquals(5, resList.get_getReservationCounter());
@@ -156,7 +184,7 @@ public class ParsingResultTestClass {
 	}
 	
 	@Test
-	public void testMultipleReservationsSomeEmpty() {
+	public void testMultipleReservationsSomeNull() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		IEC2 ec2a = new EC2Stub("random.server.name");
@@ -175,7 +203,40 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			fail("Expected 'Empty Reservation' exception not thrown " );
+		} catch (EmptyReservationException e) {
+			Assert.assertTrue(true);
+		} catch (Exception e) {
+			fail("Unexpected exception - " + e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void testMultipleReservationsSomeEmpty() {
+		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
+		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
+		IEC2 ec2a = new EC2Stub("random.server.name");
+		IEC2 ec2b = new EC2Stub("random.server.name");
+		IEC2 ec2c = new EC2Stub("random.server.name");
+		IEC2 ec2d = new EC2Stub("random.server.name");
+		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a,ec2b,ec2c,ec2d));
+		IEC2 ec2e = new EC2Stub("random.server.name");
+		EC2sStub ec2eStub = new EC2sStub(ec2e);
+		ec2eStub.clear();
+		ReservationStub reservationA = new ReservationStub(ec2s);
+		ReservationStub reservationB = new ReservationStub(ec2s);
+		ReservationStub reservationC = new ReservationStub(ec2eStub);
+		ReservationStub reservationD = new ReservationStub(ec2s);
+		ReservationStub reservationE = new ReservationStub(ec2s);
+		
+		ReservationsStub reservations = new ReservationsStub(Arrays.asList(reservationA,reservationB,reservationC,reservationD,reservationE));
+		
+		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
+
+		try {
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'Empty Reservation' exception not thrown " );
 		} catch (EmptyReservationException e) {
 			Assert.assertTrue(true);
@@ -205,7 +266,7 @@ public class ParsingResultTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			
 			ReservationsStub resList = (ReservationsStub) ec2Env.getReservations();
 			Assert.assertEquals(5, resList.get_getReservationCounter());

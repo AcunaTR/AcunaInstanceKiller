@@ -47,6 +47,14 @@ public class EC2sStub implements IEC2s{
 		newList.addAll(_ec2s);
 		return new EC2sStub(newList);
 	}
+	
+	public IEC2s empty() {
+		List<IEC2> newList = new ArrayList<>();
+		newList.addAll(_ec2s);
+		newList.clear();
+		return new EC2sStub(newList);
+	}
+	
 
 	public List<IEC2> getEC2s(){
 		return _ec2s;
@@ -55,6 +63,14 @@ public class EC2sStub implements IEC2s{
 	@Override
 	public boolean contains(IEC2 ec2) {
 		return _ec2s.contains(ec2);
+	}
+
+	public void clear() {
+		_ec2s.clear();		
+	}
+	
+	public void nullify() {
+		_ec2s.set(0, null);
 	}
 
 	

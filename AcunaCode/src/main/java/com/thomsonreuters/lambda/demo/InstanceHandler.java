@@ -1,6 +1,5 @@
 package com.thomsonreuters.lambda.demo;
 
-import com.thomsonreuters.aws.ec2.EC2s;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
@@ -14,9 +13,9 @@ import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
 
-public class GetInstancesByName {
+public class InstanceHandler {
 
-	public static IEC2s run(IEC2Env env,
+	public static IEC2s getInstanceByTagname(IEC2Env env,
 							String serverName,
 							IDescribeEC2sRequestFactory reqFactory) 
 						throws
@@ -35,8 +34,13 @@ public class GetInstancesByName {
 		
 	}
 
-	private static boolean checkEc2s(IEC2s ec2s, String serverName) throws EmptyReservationException {
-		if ((ec2s == null) || (ec2s.isEmpty())) {
+	// This was changed from private to public to allow testing of EmptyReservationException from this access point
+	public static boolean checkEc2s(IEC2s ec2s, String serverName) throws EmptyReservationException { // separate utility class and tests?
+		if (ec2s == null) {
+			throw new EmptyReservationException("Reservation contains no instances");
+		
+		}
+		if (ec2s.isEmpty()) {
 			throw new EmptyReservationException("Reservation contains no instances");
 		}
 		
@@ -49,9 +53,12 @@ public class GetInstancesByName {
 		return true;
 	}
 
-	private static IEC2s parsingEC2s(IReservations res) throws EmptyReservationException, NoReservationException {
-		if ((res == null) || (res.isEmpty())) {
+	private static IEC2s parsingEC2s(IReservations res) throws EmptyReservationException, NoReservationException {// separate utility class and tests?
+		if (res == null) { 
 			throw new NoReservationException("No reservations found");
+		}
+		if (res.isEmpty()) {
+		throw new EmptyReservationException("No reservations found");
 		}
 		
 		IEC2s ec2s = res.get(0).getInstances();
@@ -71,7 +78,7 @@ public class GetInstancesByName {
 		return fullList;
 	}
 
-	private static IReservations runApiCall(IDescribeEC2sRequest req, IEC2Env env) {
+	private static IReservations runApiCall(IDescribeEC2sRequest req, IEC2Env env) {// separate utility class and tests?
 		return env.describeEC2s(req);
 	}
 

@@ -45,4 +45,5 @@ public class ReservationsStub implements IReservations {
 	public List<ReservationStub> getReservations(){
 		return _res;
 	}
+
 }

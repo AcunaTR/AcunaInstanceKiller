@@ -18,7 +18,7 @@ import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
-import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.InstanceHandler;
 
 
 public class CreateRequestTestClass {
@@ -40,7 +40,7 @@ public class CreateRequestTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 		
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, reqFactory.getCreateRequestCallCount());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
@@ -60,7 +60,7 @@ public class CreateRequestTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 		
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, reqFactory.getSetFilterorFiltersCount());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
@@ -80,7 +80,7 @@ public class CreateRequestTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 		
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, reqFactory.getFilters().size());
 			Assert.assertEquals("random.server.name", reqFactory.getFilters().get(0).getValues().get(0));
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class CreateRequestTestClass {
 		
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, reqFactory.getFilters().size());
 			Assert.assertEquals("tag:Name", reqFactory.getFilters().get(0).getName());
 		} catch (Exception e) {

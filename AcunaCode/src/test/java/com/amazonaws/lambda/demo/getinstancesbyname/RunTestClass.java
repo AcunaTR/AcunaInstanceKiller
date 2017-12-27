@@ -21,7 +21,7 @@ import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
-import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.InstanceHandler;
 import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
@@ -46,7 +46,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1, result.size());
 			Assert.assertEquals("random.server.name", result.get(0).getTags().getValue("tag:Name"));
 			
@@ -71,7 +71,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(3, result.size());
 			
 			for(int i=0; i<result.size(); i++) {
@@ -93,7 +93,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Instances' exception not thrown " );
 		}
 		catch (EmptyReservationException e) {
@@ -119,7 +119,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Instances' exception not thrown " );
 		}
 		catch (InvalidInstancesException e) {
@@ -146,7 +146,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 		}catch(InvalidInstancesException e) {
 			Assert.assertTrue(true);
 		} catch (Exception e) {

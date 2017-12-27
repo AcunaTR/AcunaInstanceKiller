@@ -18,7 +18,7 @@ import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
-import com.thomsonreuters.lambda.demo.GetInstancesByName;
+import com.thomsonreuters.lambda.demo.InstanceHandler;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 
@@ -43,7 +43,7 @@ public class RunAPICallTestClass {
 		
 		
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(1,  ec2Env.getDescribeEC2sCounter()); 
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
@@ -63,7 +63,7 @@ public class RunAPICallTestClass {
 		
 		
 		try {
-			GetInstancesByName.run(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			Assert.assertEquals(reqStub,  ec2Env.getRequest()); 
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());

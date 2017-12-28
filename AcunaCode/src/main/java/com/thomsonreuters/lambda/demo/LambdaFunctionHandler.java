@@ -46,7 +46,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 		}
         
         
-        // OldServer.identify(buffer, instances)
+        // OldServer.identifyOldServers(fromNow, buffer, instances)
         
         
         

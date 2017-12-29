@@ -52,7 +52,7 @@ public class ParsingResultTestClass {
 	public void testOneReservationOneInstance() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -77,7 +77,7 @@ public class ParsingResultTestClass {
 	public void testOneReservationForcedEmpty() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ec2s.clear();
 		ReservationStub reservation = new ReservationStub(ec2s);
@@ -108,10 +108,10 @@ public class ParsingResultTestClass {
 	public void testOneReservationMultipleInstances() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
-		IEC2 ec2d = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
+		IEC2 ec2d = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a,ec2b,ec2c,ec2d));
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -157,7 +157,7 @@ public class ParsingResultTestClass {
 	public void testMultipleReservationsOneInstanceEach() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		IEC2s ec2s = new EC2sStub(ec2);
 		ReservationStub reservationA = new ReservationStub(ec2s);
 		ReservationStub reservationB = new ReservationStub(ec2s);
@@ -187,10 +187,10 @@ public class ParsingResultTestClass {
 	public void testMultipleReservationsSomeNull() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
-		IEC2 ec2d = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
+		IEC2 ec2d = new EC2Stub("random.server.name",null);
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a,ec2b,ec2c,ec2d));
 		ReservationStub reservationA = new ReservationStub(ec2s);
 		ReservationStub reservationB = new ReservationStub(ec2s);
@@ -217,12 +217,12 @@ public class ParsingResultTestClass {
 	public void testMultipleReservationsSomeEmpty() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
-		IEC2 ec2d = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
+		IEC2 ec2d = new EC2Stub("random.server.name",null);
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a,ec2b,ec2c,ec2d));
-		IEC2 ec2e = new EC2Stub("random.server.name");
+		IEC2 ec2e = new EC2Stub("random.server.name",null);
 		EC2sStub ec2eStub = new EC2sStub(ec2e);
 		ec2eStub.clear();
 		ReservationStub reservationA = new ReservationStub(ec2s);
@@ -250,10 +250,10 @@ public class ParsingResultTestClass {
 	public void testMultipleReservationsMultipleInstances() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
-		IEC2 ec2d = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
+		IEC2 ec2d = new EC2Stub("random.server.name",null);
 		IEC2s ec2s = new EC2sStub(Arrays.asList(ec2a,ec2b,ec2c,ec2d));
 		ReservationStub reservationA = new ReservationStub(ec2s);
 		ReservationStub reservationB = new ReservationStub(ec2s);

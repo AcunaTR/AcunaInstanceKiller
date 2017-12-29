@@ -35,7 +35,7 @@ public class RunTestClass {
 
 	@Test
 	public void testRunOneValidEC2() {
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		
 		ReservationStub reservation = new ReservationStub(ec2s);
@@ -58,9 +58,9 @@ public class RunTestClass {
 	
 	@Test
 	public void testRunMultipleValidEC2s() {
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
 		ReservationStub reservation = new ReservationStub(ec2s);
@@ -107,9 +107,9 @@ public class RunTestClass {
 
 	@Test
 	public void testRunMultipleInvalidEC2s() {
-		IEC2 ec2a = new EC2Stub("other.name");
-		IEC2 ec2b = new EC2Stub("Random.Server.Name");
-		IEC2 ec2c = new EC2Stub("21");
+		IEC2 ec2a = new EC2Stub("other.name",null);
+		IEC2 ec2b = new EC2Stub("Random.Server.Name",null);
+		IEC2 ec2c = new EC2Stub("21",null);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
 		ReservationStub reservation = new ReservationStub(ec2s);
@@ -132,10 +132,10 @@ public class RunTestClass {
 	
 	@Test
 	public void testRunMixedValidityEC2s() {
-		IEC2 ec2a = new EC2Stub("Random.Server.Name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("Jim");
-		IEC2 ec2d = new EC2Stub("random.server.name ");
+		IEC2 ec2a = new EC2Stub("Random.Server.Name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("Jim",null);
+		IEC2 ec2d = new EC2Stub("random.server.name ",null);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
 		
 		ReservationStub reservation = new ReservationStub(ec2s);

@@ -34,7 +34,7 @@ public class RunAPICallTestClass {
 	public void testRunApiCall() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -54,7 +54,7 @@ public class RunAPICallTestClass {
 	public void testRunApiCallRequestObject() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);

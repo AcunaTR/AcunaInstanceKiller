@@ -9,9 +9,11 @@ import com.thomsonreuters.aws.tag.ITags;
 public class EC2Stub implements IEC2 {
 
 	private ITags _name;
+	private Date _launchTime;
 	
-	public EC2Stub(String name) {
-		_name = new TagsStub(name);
+	public EC2Stub(String name, Date launchtime) {
+		_name = new TagsStub(name);	
+		_launchTime = launchtime;
 	}
 
 	@Override
@@ -24,11 +26,10 @@ public class EC2Stub implements IEC2 {
 	public ITags getTags() {
 		return _name;
 	}
-
+	
 	@Override
 	public Date getLaunchTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return _launchTime;
 	}
 
 	@Override

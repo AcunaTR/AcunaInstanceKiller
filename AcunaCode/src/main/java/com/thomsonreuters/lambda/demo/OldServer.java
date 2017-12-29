@@ -5,21 +5,88 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.thomsonreuters.aws.ec2.EC2s;
+import com.thomsonreuters.aws.ec2.IEC2;
+import com.thomsonreuters.aws.ec2.IEC2s;
 
 public class OldServer {
 	
-	ArrayList <EC2s> oldServers = new ArrayList<>();
+	//static IEC2s oldServers;
+	//static IEC2s backupServers;
 	
-	public static Date identifyOldServers(Date date, int buffer) {
-		//List<EC2s> when finished!
-		Date cutOffDate = getCutOffDate(date, buffer);
-		return cutOffDate;
-		//return oldServers;
-	
+	public static List<String> identifyOldServers(Date todaysDate, int bufferDays, IEC2s ec2s) {
+		// when finished!
+		Date cutOffDate = getCutOffDate(todaysDate, bufferDays);
+		
+		//IEC2s duplicate = ec2s.clone();
+
+	//	oldServers = ec2s.
+		List<String> oldServers = findOldInstanceIDs(ec2s, cutOffDate); 
+		
+		
+		
+		
+		//return cutOffDate;
+		
+		
+		return oldServers;	
 	}
 	
-	private static Date getCutOffDate(Date date, int buffer) {
+	private static List<String> findOldInstanceIDs(IEC2s instances, Date cutOffDate) {
+    	//List<Instance> oldInstances = new ArrayList<>();
+//		IEC2s oldie = new ArrayList<>();
+		//IEC2s oldie = instances.clone();
+		
+		List<String> instanceIDs = new ArrayList<>();
+		
+		
+		for (int i = 0; i < instances.size(); i++) {
+		//	Date born = instances.get(i).getLaunchTime();
+			 Date born = instances.get(i).getLaunchTime();
+		//	Date born = flump.getLaunchTime();
+		
+			
+    		if (born.before(cutOffDate)) {
+    			//TODO - if this is straying, need to add in checks for the correct instance here, as all info other than ID is going to be lost beyond this
+    			
+    			instanceIDs.add(instances.get(i).getInstanceID());
+    			//oldInstances.add(i);
+    			//oldServers.add(instances.get(i));   
+    			
+    //	if (instances.size()>0) {
+    		
+    	//	oldServers.add(instances.get(0));
+    			
+    			
+    			//addAll(instances.get(i));			
+			}
+    //		else {
+    //			backupServers.add(instances.get(i);
+    //		}
+		}
+		
+		//IEC2s instances2 = new IEC2s()
+		return instanceIDs;
+	}
+
+/*	private static IEC2s findBackupInstances(IEC2s instances, Date cutOffDate) {
+    	//List<Instance> oldInstances = new ArrayList<>();
+	
+		for (int i = 0; i < instances.size(); i++) {
+			Date born = instances.get(i).getLaunchTime();
+    		if (born.after(cutOffDate)) {
+    			IEC2 ec2 = instances.get(i);
+    			backupServers.add(ec2);
+    		//backupServers.addAll(ec2);
+    		}
+		}
+		return backupServers;
+	}*/
+
+	
+	
+	
+	// TODO I changed this from private to public, is that ok?
+	public static Date getCutOffDate(Date date, int buffer) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
     	c.add(Calendar.DATE, (-1*buffer));
@@ -28,8 +95,8 @@ public class OldServer {
 	
 	
 	/* given buffer, list of instance
-	find cut off date
-	work out 5 days ago
+	find cut off date // done
+	work out 5 days ago // done
 	find instances born before date
 	
 	

@@ -121,7 +121,7 @@ public class CheckEC2sTestClass {
 	public void testCheckOneEC2() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -142,7 +142,7 @@ public class CheckEC2sTestClass {
 	public void testCheckOneEC2DeletedEC2() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("random.server.name");
+		IEC2 ec2 = new EC2Stub("random.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ec2s.clear();
 		ReservationStub reservation = new ReservationStub(ec2s);
@@ -167,7 +167,7 @@ public class CheckEC2sTestClass {
 	public void testCheckOneInvalidEC2() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("otherrandom.server.name");
+		IEC2 ec2 = new EC2Stub("otherrandom.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -185,11 +185,11 @@ public class CheckEC2sTestClass {
 		
 	}
 	
-	@Test //test works if 'checkEc2s' is made public 
+	@Test //TODO test works if 'checkEc2s' is made public 
 	public void testCheckOneEmptyListIEC2s() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("otherrandom.server.name");
+		IEC2 ec2 = new EC2Stub("otherrandom.server.name",null);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		IEC2s ec2Result = ec2s.empty();
 		ReservationStub reservation = new ReservationStub(ec2Result);
@@ -236,9 +236,9 @@ public class CheckEC2sTestClass {
 	public void testCheckSeveralValidEC2s() {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2a = new EC2Stub("random.server.name");
-		IEC2 ec2b = new EC2Stub("random.server.name");
-		IEC2 ec2c = new EC2Stub("random.server.name");
+		IEC2 ec2a = new EC2Stub("random.server.name",null);
+		IEC2 ec2b = new EC2Stub("random.server.name",null);
+		IEC2 ec2c = new EC2Stub("random.server.name",null);
 		List<IEC2> collectionEc2s = Arrays.asList(ec2a,ec2b,ec2c);
 		EC2sStub ec2s = new EC2sStub(collectionEc2s);
 		ReservationStub reservation = new ReservationStub(ec2s);

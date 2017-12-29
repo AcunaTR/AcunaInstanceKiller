@@ -58,4 +58,11 @@ public class EC2sImpl implements IEC2s, IEC2sRaw {
 		return _ec2s.contains(raw.getRaw());
 	}
 
+
+	@Override
+	public void add(IEC2 ec2) {
+		IEC2Raw raw = (IEC2Raw) ec2;
+		_ec2s.add(raw.getRaw());	
+	}
+
 }

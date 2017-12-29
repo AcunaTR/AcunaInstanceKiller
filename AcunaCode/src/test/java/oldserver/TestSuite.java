@@ -9,7 +9,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	FindDateTestClass.class
+	FindDateTestClass.class,
+	FindOldServersTestClass.class
 })
 
 public class TestSuite {

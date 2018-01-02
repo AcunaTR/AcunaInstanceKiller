@@ -67,7 +67,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			return "Caught InvalidTargetGroupsException - " + e.getMessage();
 		}
 
-        return "hello";
+        return oldServers.toString();
         
 
     }  

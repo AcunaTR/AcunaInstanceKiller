@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
 	CheckEC2sTestClass.class
 })
 
-public class TestSuite {
+public class InstanceHandlerTestSuite {
 
 	
 

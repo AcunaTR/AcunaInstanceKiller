@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
 	FindOldServersTestClass.class
 })
 
-public class TestSuite {
+public class OldServerTestSuite {
 
 }
 

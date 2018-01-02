@@ -42,14 +42,9 @@ public class FindDateTestClass {
 		ec2s  = new EC2sStub(ec2);
 	}
 
-	@Test
-	public void testServerDateInUTC() {
-		//fail("Not yet implemented");
-	}
 	
 	@Test // check the calculated date values are in UTC
 	public void testTodaysDateInUTC() { 
-		//Date now = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 
@@ -58,10 +53,6 @@ public class FindDateTestClass {
 		Assert.assertEquals(sdf.format(now), sdf.format((currentTime.whatTimeIsNow())));		
 	}
 	
-	@Test
-	public void testCutOffDateInputInUTC() {
-	//	fail("Not yet implemented");
-	}
 	
 	@Test
 	public void testBufferDistanceBetweenCutoffAndToday() {
@@ -86,16 +77,6 @@ public class FindDateTestClass {
 			fail("Unexpected exception - " + e.getMessage());
 		}
 	}
-
-	@Test
-	public void testBornOnCutoffTime() {
-	//	fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testTimeDifferenceNotNegative() {
-	//	fail("Not yet implemented"); ? same test as testCutoffTimeIsBeforeToday
-	}
 	
 	@Test
 	public void testTimeDifferenceNotSilly() {
@@ -110,5 +91,25 @@ public class FindDateTestClass {
 		}catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
-	} 
+	}
+	
+/*	@Test
+	public void testBornOnCutoffTime() {
+	//	fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testTimeDifferenceNotNegative() {
+	//	fail("Not yet implemented"); ? same test as testCutoffTimeIsBeforeToday
+	}
+
+	@Test
+	public void testServerDateInUTC() {
+		//fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCutOffDateInputInUTC() {
+	//	fail("Not yet implemented");
+	} */
 }

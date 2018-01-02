@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo;
+package com.thomsonreuters.lambda.demo;
 
 import org.junit.Assert;
 import org.junit.Test;

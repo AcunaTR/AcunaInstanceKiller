@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.getinstancesbyname;
+package com.thomsonreuters.lambda.demo.instancehandler;
 
 import static org.junit.Assert.*;
 
@@ -9,19 +9,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.amazonaws.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
-import com.amazonaws.lambda.demo.stubs.DescribeEC2sRequestStub;
-import com.amazonaws.lambda.demo.stubs.EC2EnvStub;
-import com.amazonaws.lambda.demo.stubs.EC2Stub;
-import com.amazonaws.lambda.demo.stubs.EC2sStub;
-import com.amazonaws.lambda.demo.stubs.ReservationStub;
-import com.amazonaws.lambda.demo.stubs.ReservationsStub;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.lambda.demo.InstanceHandler;
 import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
+import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
+import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestStub;
+import com.thomsonreuters.lambda.demo.stubs.EC2EnvStub;
+import com.thomsonreuters.lambda.demo.stubs.EC2Stub;
+import com.thomsonreuters.lambda.demo.stubs.EC2sStub;
+import com.thomsonreuters.lambda.demo.stubs.ReservationStub;
+import com.thomsonreuters.lambda.demo.stubs.ReservationsStub;
 
 public class ParsingResultTestClass {
 

@@ -1,4 +1,4 @@
-package oldserver;
+package com.thomsonreuters.lambda.demo.oldserver;
 
 import static org.junit.Assert.*;
 
@@ -15,13 +15,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.amazonaws.lambda.demo.stubs.EC2Stub;
-import com.amazonaws.lambda.demo.stubs.EC2sStub;
-import com.amazonaws.lambda.demo.stubs.InstanceLaunchTimeStub;
 import com.thomsonreuters.aws.ec2.EC2s;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.lambda.demo.OldServer;
+import com.thomsonreuters.lambda.demo.stubs.EC2Stub;
+import com.thomsonreuters.lambda.demo.stubs.EC2sStub;
+import com.thomsonreuters.lambda.demo.stubs.InstanceLaunchTimeStub;
 
 
 

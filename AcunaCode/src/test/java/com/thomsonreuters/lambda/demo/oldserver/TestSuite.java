@@ -1,4 +1,4 @@
-package oldserver;
+package com.thomsonreuters.lambda.demo.oldserver;
 
 import static org.junit.Assert.*;
 

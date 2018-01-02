@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.stubs;
+package com.thomsonreuters.lambda.demo.stubs;
 
 import com.thomsonreuters.aws.ami.IAmi;
 import com.thomsonreuters.aws.tag.ITags;

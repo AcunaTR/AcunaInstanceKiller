@@ -1,4 +1,4 @@
-package oldserver;
+package com.thomsonreuters.lambda.demo.oldserver;
 
 import static org.junit.Assert.*;
 
@@ -13,13 +13,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.amazonaws.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
-import com.amazonaws.lambda.demo.stubs.DescribeEC2sRequestStub;
-import com.amazonaws.lambda.demo.stubs.EC2EnvStub;
-import com.amazonaws.lambda.demo.stubs.EC2Stub;
-import com.amazonaws.lambda.demo.stubs.EC2sStub;
-import com.amazonaws.lambda.demo.stubs.ReservationStub;
-import com.amazonaws.lambda.demo.stubs.ReservationsStub;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
@@ -29,33 +22,40 @@ import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
+import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
+import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestStub;
+import com.thomsonreuters.lambda.demo.stubs.EC2EnvStub;
+import com.thomsonreuters.lambda.demo.stubs.EC2Stub;
+import com.thomsonreuters.lambda.demo.stubs.EC2sStub;
+import com.thomsonreuters.lambda.demo.stubs.ReservationStub;
+import com.thomsonreuters.lambda.demo.stubs.ReservationsStub;
 
 
 
 public class FindOldServersTestClass {
 
-	//int buffer;
-	//Date now;
-	//IEC2s oldServers; 
-	//IEC2s backupServers; 
+	int buffer;
+	Date now;
 	
 	@Before
 	public void setUp() throws Exception {
-	//	buffer = 5;
-	//	now = new Date();
+	
+		now = new Date();
+		buffer = 5;
 		
 	}
 
-	/*	@Test
+		@Test
 	public void testInstanceBornBeforeCutOffDate() {
 		Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
 		IEC2 ec2 = new EC2Stub("random.server.name", previously);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		
 		try {
-			oldServers = OldServer.identifyOldServers(now, buffer, ec2s);
-			Assert.assertEquals(1, oldServers.size());
-			Assert.assertEquals(0, backupServers.size());
+			List<String> oldInstanceIDs =  OldServer.identifyOldServers(now, buffer, ec2s);
+	//		List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			Assert.assertEquals(1, oldInstanceIDs.size());
+		//	Assert.assertEquals(0, currentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -69,9 +69,10 @@ public class FindOldServersTestClass {
 		EC2sStub ec2s = new EC2sStub(ec2);
 		
 		try {
-			oldServers = OldServer.identifyOldServers(now, buffer, ec2s);
-			Assert.assertEquals(0, oldServers.size());
-			Assert.assertEquals(1, backupServers.size());			
+			List<String> oldInstanceIDs =  OldServer.identifyOldServers(now, buffer, ec2s);
+	//		List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			Assert.assertEquals(0, oldInstanceIDs.size());
+		//	Assert.assertEquals(1, currentInstanceIDs.size());			
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -89,9 +90,10 @@ public class FindOldServersTestClass {
 		IEC2 ec2g = new EC2Stub("random.server.name",previously);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c, ec2d, ec2e, ec2f, ec2g));
 		try {
-			oldServers = OldServer.identifyOldServers(now, buffer, ec2s);
-			Assert.assertEquals(4, oldServers.size());
-			Assert.assertEquals(3, backupServers.size());
+			List<String> oldInstanceIDs =  OldServer.identifyOldServers(now, buffer, ec2s);
+		//	List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			Assert.assertEquals(4, oldInstanceIDs.size());
+		//	Assert.assertEquals(3, currentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -99,43 +101,32 @@ public class FindOldServersTestClass {
 	
 	@Test
 	public void testNoInstances() {
-		EC2sStub ec2s = new EC2sStub(Arrays.asList(null));
+		EC2sStub ec2s = new EC2sStub();
 		try {
-			oldServers = OldServer.identifyOldServers(now, buffer, ec2s);
-			//Assert.assertEquals(0, oldServers.size());
-			//Assert.assertEquals(0, backupServers.size());
+			List<String> oldInstanceIDs = OldServer.identifyOldServers(now, buffer, ec2s);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
-	}*/
+	}
 	
 	@Test
-	public void testInvalidInstances() throws InvalidInstancesException, NoInstancesException, EmptyReservationException, NoReservationException {
+	public void testInvalidOldInstance()  {
 		Date now = new Date();
 		int buffer = 5;
-//		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
-//		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
-		IEC2 ec2 = new EC2Stub("random.server.name", previously);
-		IEC2s ec2s = new EC2sStub(ec2);
-	//	IEC2s iec2s = (IEC2s) ec2s;
-	//	IEC2s oldServers = new EC2sStub();
 
-//		ReservationStub reservation = new ReservationStub(ec2s);
-//		ReservationsStub reservations = new ReservationsStub(reservation);
-		
-//		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
-//		IEC2s ec2Result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
-		
-		try {
-			
-			List<String> instanceIDs = OldServer.identifyOldServers(now, buffer, ec2s);
-			Assert.assertEquals(1, instanceIDs.size());
-			//Assert.assertEquals(0, oldServers.size());
+		Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
+		IEC2 ec2 = new EC2Stub("random.server.name", null);
+		IEC2s ec2s = new EC2sStub(ec2);
+	
+		try {			
+			List<String> oldInstanceIDs = OldServer.identifyOldServers(now, buffer, ec2s);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);	
 		} catch (Exception e) {
 			fail("Unexpected exception - ec2s - " + ec2s.toString() +" - " + e.toString());
 		}
 	}
+	
 }

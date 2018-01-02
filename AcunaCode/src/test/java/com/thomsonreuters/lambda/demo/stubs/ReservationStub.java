@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.stubs;
+package com.thomsonreuters.lambda.demo.stubs;
 
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.reservation.IReservation;

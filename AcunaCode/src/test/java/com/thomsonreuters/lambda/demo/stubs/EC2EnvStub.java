@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.stubs;
+package com.thomsonreuters.lambda.demo.stubs;
 
 import com.thomsonreuters.aws.ami.IAmis;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;

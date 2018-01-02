@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.stubs;
+package com.thomsonreuters.lambda.demo.stubs;
 
 import java.util.ArrayList;
 import java.util.Date;

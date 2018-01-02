@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.stubs;
+package com.thomsonreuters.lambda.demo.stubs;
 
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.filter.IFilter;

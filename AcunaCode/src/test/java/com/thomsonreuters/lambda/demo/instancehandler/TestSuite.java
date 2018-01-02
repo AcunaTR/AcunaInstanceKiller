@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo.getinstancesbyname;
+package com.thomsonreuters.lambda.demo.instancehandler;
 
 import static org.junit.Assert.*;
 

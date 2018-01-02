@@ -46,7 +46,7 @@ public class InstanceHandler {
 		
 		for (int i = 0; i < ec2s.size(); i++) {
 			IEC2 ec2 = ec2s.get(i);
-			if(ec2.getTags().getValue("tag:Name") != serverName){
+			if(ec2.getTags().getValue("Name") != serverName){
 				return false;
 			}
 		}

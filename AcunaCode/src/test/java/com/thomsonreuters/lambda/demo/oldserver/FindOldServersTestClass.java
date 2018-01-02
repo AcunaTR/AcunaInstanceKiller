@@ -1,22 +1,7 @@
 package com.thomsonreuters.lambda.demo.oldserver;
 
-import static org.junit.Assert.*;
-
-
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
-
-import com.thomsonreuters.aws.ec2.IEC2;
-import com.thomsonreuters.aws.ec2.IEC2s;
-import com.thomsonreuters.lambda.demo.OldServer;
-import com.thomsonreuters.lambda.demo.stubs.EC2Stub;
-import com.thomsonreuters.lambda.demo.stubs.EC2sStub;
 
 
 

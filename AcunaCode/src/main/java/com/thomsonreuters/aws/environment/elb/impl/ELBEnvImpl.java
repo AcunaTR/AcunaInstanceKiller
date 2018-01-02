@@ -2,7 +2,6 @@ package com.thomsonreuters.aws.environment.elb.impl;
 
 import com.amazonaws.services.elasticloadbalancingv2.AmazonElasticLoadBalancing;
 import com.amazonaws.services.elasticloadbalancingv2.AmazonElasticLoadBalancingClientBuilder;
-import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthRequest;
 import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthResult;
 import com.thomsonreuters.aws.environment.elb.IELBEnv;
 import com.thomsonreuters.aws.environment.elb.request.*;

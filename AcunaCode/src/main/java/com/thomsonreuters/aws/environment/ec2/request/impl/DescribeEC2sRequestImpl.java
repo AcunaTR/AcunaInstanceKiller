@@ -1,5 +1,6 @@
 package com.thomsonreuters.aws.environment.ec2.request.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
@@ -17,6 +18,7 @@ public class DescribeEC2sRequestImpl implements IDescribeEC2sRequest, IDescribeE
 	
     public DescribeEC2sRequestImpl() {
         _req = new DescribeInstancesRequest();
+        _filters = new ArrayList<>();
     }
 
     @Override

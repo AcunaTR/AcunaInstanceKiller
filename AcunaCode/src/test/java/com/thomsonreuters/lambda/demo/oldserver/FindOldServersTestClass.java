@@ -1,7 +1,22 @@
 package com.thomsonreuters.lambda.demo.oldserver;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
+
+import com.thomsonreuters.aws.ec2.IEC2;
+import com.thomsonreuters.aws.ec2.IEC2s;
+import com.thomsonreuters.lambda.demo.OldServer;
+import com.thomsonreuters.lambda.demo.stubs.EC2Stub;
+import com.thomsonreuters.lambda.demo.stubs.EC2sStub;
+
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Calendar;
 
 
 
@@ -15,20 +30,18 @@ public class FindOldServersTestClass {
 	
 		now = new Date();
 		buffer = 5;
-		
 	}
-/*
+	
 		@Test
-	public void testInstanceBornBeforeCutOffDate() {
+		public void testInstanceBornBeforeCutOffDate() {
 		Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
 		IEC2 ec2 = new EC2Stub("random.server.name", previously);
 		EC2sStub ec2s = new EC2sStub(ec2);
+
 		
 		try {
-			IEC2s oldInstanceIDs =  OldServer.identifyOldServers(buffer, ec2s);
-	//		List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(1, oldInstanceIDs.size());
-		//	Assert.assertEquals(0, currentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -42,10 +55,8 @@ public class FindOldServersTestClass {
 		EC2sStub ec2s = new EC2sStub(ec2);
 		
 		try {
-			IEC2s oldInstanceIDs =  OldServer.identifyOldServers(buffer, ec2s);
-	//		List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(0, oldInstanceIDs.size());
-		//	Assert.assertEquals(1, currentInstanceIDs.size());			
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -63,10 +74,8 @@ public class FindOldServersTestClass {
 		IEC2 ec2g = new EC2Stub("random.server.name",previously);
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c, ec2d, ec2e, ec2f, ec2g));
 		try {
-			IEC2s oldInstanceIDs =  OldServer.identifyOldServers(buffer, ec2s);
-		//	List<String> currentInstanceIDs =  OldServer.findBackupInstances(now, buffer, ec2s);
+			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(4, oldInstanceIDs.size());
-		//	Assert.assertEquals(3, currentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -76,7 +85,7 @@ public class FindOldServersTestClass {
 	public void testNoInstances() {
 		EC2sStub ec2s = new EC2sStub();
 		try {
-			OldServer.identifyOldServers(buffer, ec2s);
+			OldServer.identifyOldServers(null, buffer, ec2s, null);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		} catch (Exception e) {
@@ -88,17 +97,16 @@ public class FindOldServersTestClass {
 	public void testInvalidOldInstance()  {
 		int buffer = 5;
 
-		//Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
 		IEC2 ec2 = new EC2Stub("random.server.name", null);
 		IEC2s ec2s = new EC2sStub(ec2);
 	
 		try {			
-			OldServer.identifyOldServers(buffer, ec2s);
+			OldServer.identifyOldServers(null, buffer, ec2s, null);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);	
 		} catch (Exception e) {
 			fail("Unexpected exception - ec2s - " + ec2s.toString() +" - " + e.toString());
 		}
 	}
-	*/
+	
 }

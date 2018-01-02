@@ -42,7 +42,7 @@ public class OldServer {
 		return true;
 	}
 
-	private static IEC2s findOldInstances(IEC2s instances, Date cutOffDate) {
+	public static IEC2s findOldInstances(IEC2s instances, Date cutOffDate) {
 
 		IEC2s oldies = EC2s.create();
 		

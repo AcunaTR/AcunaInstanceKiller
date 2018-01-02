@@ -15,8 +15,10 @@ import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFactory;
+import com.thomsonreuters.lambda.demo.factories.ITerminateInstancesRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.impl.DescribeEC2sRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.impl.DescribeTargetGroupsRequestFactory;
+import com.thomsonreuters.lambda.demo.factories.impl.TerminateInstancesRequestFactory;
 
 public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
@@ -67,7 +69,15 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			return "Caught InvalidTargetGroupsException - " + e.getMessage();
 		}
 
-        return oldServers.toString();
+        
+       
+        ITerminateInstancesRequestFactory terminateReqFactory = new TerminateInstancesRequestFactory();	
+		TerminateServers.terminateInstances(oldServers, ec2Env, null);        
+        
+        
+        
+               
+        return "woot!";
         
 
     }  

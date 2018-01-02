@@ -6,6 +6,7 @@
 package com.thomsonreuters.aws.environment.ec2.impl;
 
 import com.thomsonreuters.aws.environment.ec2.request.impl.IDescribeEC2sRequestRaw;
+import com.thomsonreuters.aws.environment.ec2.request.impl.ITerminateInstancesRequestRaw;
 import com.thomsonreuters.aws.environment.ec2.request.impl.IDescribeAmisRequestRaw;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2ClientBuilder;
@@ -14,6 +15,7 @@ import com.thomsonreuters.aws.ami.impl.AmisImpl;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
+import com.thomsonreuters.aws.environment.ec2.request.ITerminateInstancesRequest;
 import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.aws.reservation.impl.ReservationsImpl;
 
@@ -40,4 +42,11 @@ public class EC2EnvImpl implements IEC2Env {
         IDescribeEC2sRequestRaw raw = (IDescribeEC2sRequestRaw)request;
         return new ReservationsImpl(_ec2.describeInstances(raw.getRaw()).getReservations());
     }
+
+	@Override
+	public void terminateInstances(ITerminateInstancesRequest req) {
+		ITerminateInstancesRequestRaw raw = (ITerminateInstancesRequestRaw) req;
+		_ec2.terminateInstances(raw.getRaw());
+		
+	}
 }

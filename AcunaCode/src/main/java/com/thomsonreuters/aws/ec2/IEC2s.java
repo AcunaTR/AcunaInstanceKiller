@@ -1,7 +1,5 @@
 package com.thomsonreuters.aws.ec2;
 
-import java.util.List;
-
 public interface IEC2s {
 
     int size();

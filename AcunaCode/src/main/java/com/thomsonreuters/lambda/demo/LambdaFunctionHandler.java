@@ -1,18 +1,22 @@
 package com.thomsonreuters.lambda.demo;
 
-import java.util.List;
-
-import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.EC2Env;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
+import com.thomsonreuters.aws.environment.elb.ELBEnv;
+import com.thomsonreuters.aws.environment.elb.IELBEnv;
 import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
+import com.thomsonreuters.lambda.demo.exceptions.InvalidTargetGroupsException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
+import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
+import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.impl.DescribeEC2sRequestFactory;
+import com.thomsonreuters.lambda.demo.factories.impl.DescribeTargetGroupsRequestFactory;
 
 public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
@@ -21,16 +25,13 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         context.getLogger().log("Input: " + input);
         IEC2Env ec2Env = EC2Env.create();
         IDescribeEC2sRequestFactory factory = new DescribeEC2sRequestFactory();
-        //test
-        // TODO: implement your handler
+        
+        IEC2s allServers;
+
         try {
-			
         	
-        	InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
-        	// ? List<Instance> instances 
-		
-        
-        
+        	allServers = InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
+
         } catch (InvalidInstancesException e) {
 			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
 			return "Caught InvalidInstancesException - " + e.getMessage();
@@ -45,20 +46,29 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			return "Caught NoReservationException - " + e.getMessage();
 		}
         
+        int buffer = 5;
         
-        // OldServer.identifyOldServers(fromNow, buffer, instances)
+        IELBEnv elbEnv = ELBEnv.create();
+        IDescribeTargetGroupsRequestFactory reqFactory = new DescribeTargetGroupsRequestFactory();
+        IEC2s oldServers;
         
-        
-        
+        try {
+        	
+			oldServers = OldServer.identifyOldServers(elbEnv, buffer, allServers, reqFactory);
+			
+		} catch (InvalidInstancesException e) {
+			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
+			return "Caught InvalidInstancesException - " + e.getMessage();
+		} catch (NoTargetGroupException e) {
+			context.getLogger().log("Caught NoTargetGroupException - " + e.getMessage());
+			return "Caught NoTargetGroupException - " + e.getMessage();
+		} catch (InvalidTargetGroupsException e) {
+			context.getLogger().log("Caught InvalidTargetGroupsException - " + e.getMessage());
+			return "Caught InvalidTargetGroupsException - " + e.getMessage();
+		}
+
         return "hello";
         
 
     }  
-    
-    /*IEC2Env ec2Env = EC2Env.create();
-    IDescribeAmisRequest req = DescribeAmisRequest.create();
-    IFilter filter = Filter.create("tag:tr-latest", "True");
-    IFilter filter2 = Filter.create("tag:tr-supported", "True");
-    req.setFilters(Filters.create(Arrays.asList(filter, filter2)));
-    IAmis amis = ec2Env.describeAmis(req);*/
 }

@@ -1,13 +1,14 @@
 package com.thomsonreuters.lambda.demo.stubs;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import com.amazonaws.services.ec2.model.Instance;
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
+import com.thomsonreuters.aws.ec2.impl.IEC2sRaw;
 
-public class EC2sStub implements IEC2s{
+public class EC2sStub implements IEC2s, IEC2sRaw{
 
 	private List<IEC2> _ec2s;
 	
@@ -90,6 +91,12 @@ public class EC2sStub implements IEC2s{
 	public void add(IEC2 ec2) {
 		_ec2s.add(ec2);
 		
+	}
+
+	@Override
+	public List<Instance> getRaw() {
+		
+		return null;
 	}
 
 	

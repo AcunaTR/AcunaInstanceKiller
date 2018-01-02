@@ -2,7 +2,6 @@ package com.thomsonreuters.lambda.demo.instancehandler;
 
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,12 +11,9 @@ import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.reservation.IReservation;
-import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.InstanceHandler;
 import com.thomsonreuters.lambda.demo.exceptions.EmptyReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
-import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
 import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestStub;
 import com.thomsonreuters.lambda.demo.stubs.EC2EnvStub;
@@ -93,7 +89,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Instances' exception not thrown " );
 		}
 		catch (EmptyReservationException e) {
@@ -119,7 +115,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("Expected 'No Instances' exception not thrown " );
 		}
 		catch (InvalidInstancesException e) {
@@ -136,7 +132,7 @@ public class RunTestClass {
 		IEC2 ec2b = new EC2Stub("random.server.name",null);
 		IEC2 ec2c = new EC2Stub("Jim",null);
 		IEC2 ec2d = new EC2Stub("random.server.name ",null);
-		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c));
+		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c, ec2d));
 		
 		ReservationStub reservation = new ReservationStub(ec2s);
 		ReservationsStub reservations = new ReservationsStub(reservation);
@@ -146,7 +142,7 @@ public class RunTestClass {
 		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
 		try {
-			IEC2s result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 		}catch(InvalidInstancesException e) {
 			Assert.assertTrue(true);
 		} catch (Exception e) {

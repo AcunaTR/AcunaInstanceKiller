@@ -1,95 +1,69 @@
 package com.thomsonreuters.lambda.demo;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.thomsonreuters.aws.ec2.EC2s;
-import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
+import com.thomsonreuters.aws.environment.elb.IELBEnv;
+import com.thomsonreuters.aws.targetgroup.ITargetGroup;
+import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
+import com.thomsonreuters.lambda.demo.exceptions.InvalidTargetGroupsException;
+import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
+import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFactory;
 
 public class OldServer {
 	
-	static List<String> currentServerIDs = new ArrayList<>();
-	static List<String> instanceIDs = new ArrayList<>();
+	//static List<String> currentServerIDs = new ArrayList<>();
+	//static List<String> instanceIDs = new ArrayList<>();
 	
-	public static List<String> identifyOldServers(Date todaysDate, int bufferDays, IEC2s ec2s) {
-		
-		Date cutOffDate = getCutOffDate(todaysDate, bufferDays);
-		
-		//IEC2s duplicate = ec2s.clone();
+	public static IEC2s identifyOldServers(IELBEnv elbEnv, int bufferDays, IEC2s ec2s, IDescribeTargetGroupsRequestFactory reqFactory) throws InvalidInstancesException, NoTargetGroupException, InvalidTargetGroupsException {
+		Date today = new Date();
+		Date cutOffDate = getCutOffDate(today, bufferDays);
+		IEC2s oldServers = findOldInstances(ec2s, cutOffDate);
+		if(!connectedToELB(elbEnv, oldServers, reqFactory)) {
+			return oldServers;
+		}
+		throw new InvalidInstancesException("Servers still connected to ELB");
 
-	//	oldServers = ec2s.
-		List<String> oldServers = findOldInstanceIDs(ec2s, cutOffDate);
-		List<String> currentServers = findBackupInstances(ec2s, cutOffDate);
-		
-		
-		
-		
-		
-		//return cutOffDate;
-		
-		
-		return oldServers;	
 	}
 	
-	private static List<String> findOldInstanceIDs(IEC2s instances, Date cutOffDate) {
-    	//List<Instance> oldInstances = new ArrayList<>();
-		//IEC2s oldie = EC2s.create();
-		//IEC2s oldie = instances.clone();
-		instanceIDs.clear();
-		for (int i = 0; i < instances.size(); i++) {
-		//	Date born = instances.get(i).getLaunchTime();
-			 Date born = instances.get(i).getLaunchTime();
-		//	Date born = flump.getLaunchTime();
-	
-    		if (born.before(cutOffDate)) {
-    			//TODO - if this is straying, need to add in checks for the correct instance here, as all info other than ID is going to be lost beyond this
-    			
-    			instanceIDs.add(instances.get(i).getInstanceID());
-    			//oldInstances.add(i);
-    			//oldServers.add(instances.get(i));   
-    			
-    //	if (instances.size()>0) {
-    		
-    	//	oldServers.add(instances.get(0));
-    			//addAll(instances.get(i));			
+	private static boolean connectedToELB(IELBEnv elbEnv, IEC2s oldServers, IDescribeTargetGroupsRequestFactory reqFactory) throws NoTargetGroupException, InvalidTargetGroupsException {
+		ITargetGroup targetGroup = ELBHandler.getTargetGroup(elbEnv, reqFactory);
+		List<String> targetIDs = targetGroup.getTargetIDs(elbEnv);
+		for(int i=0; i<oldServers.size(); i++) {
+			String id = oldServers.get(i).getInstanceID();
+			if(targetIDs.contains(id)) {
+				return false;
 			}
-    //		else {
-    //			backupServers.add(instances.get(i);
-    //		}
 		}
 		
-		//IEC2s instances2 = new IEC2s()
-		return instanceIDs;
+		return true;
 	}
 
-	private static  List<String> findBackupInstances(IEC2s instances, Date cutOffDate) {
+	private static IEC2s findOldInstances(IEC2s instances, Date cutOffDate) {
 
-		currentServerIDs.clear();
+		IEC2s oldies = EC2s.create();
+		
 		for (int i = 0; i < instances.size(); i++) {
+			
 			Date born = instances.get(i).getLaunchTime();
-    		if (born.after(cutOffDate)) {
-    			//IEC2 ec2 = instances.get(i);
-    			currentServerIDs.add(instances.get(i).getInstanceID());
-    			//currentServers.add(ec2);
-    		//backupServers.addAll(ec2);
+    		if (born.before(cutOffDate)) {
+    			oldies.add(instances.get(i));
     		}
 		}
-		return currentServerIDs;
+		
+		return oldies;
 	}
-
 	
 	
-	
-	// TODO I changed this from private to public, is that ok?
 	public static Date getCutOffDate(Date date, int buffer) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
     	c.add(Calendar.DATE, (-1*buffer));
     	return c.getTime();
-		}
+	}
 	
 	
 	/* given buffer, list of instance
@@ -110,5 +84,24 @@ public class OldServer {
 	If killing more than 2 or 3 instances, put in some sort of check - Are you sure? flag
 	
 	*/	
+	
+	/*
+	private static  List<String> findBackupInstances(IEC2s instances, Date cutOffDate) {
+
+		currentServerIDs.clear();
+		for (int i = 0; i < instances.size(); i++) {
+			Date born = instances.get(i).getLaunchTime();
+    		if (born.after(cutOffDate)) {
+    			//IEC2 ec2 = instances.get(i);
+    			currentServerIDs.add(instances.get(i).getInstanceID());
+    			//currentServers.add(ec2);
+    		//backupServers.addAll(ec2);
+    		}
+		}
+		return currentServerIDs;
+	}
+
+	
+	*/
 
 }

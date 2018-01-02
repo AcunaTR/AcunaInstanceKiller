@@ -1,7 +1,7 @@
-package com.thomsonreuters.aws.environment.elb.targets.impl;
+package com.thomsonreuters.aws.environment.elb.request.impl;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.DeregisterTargetsRequest;
-import com.thomsonreuters.aws.environment.elb.targets.IDeregisterTargetsRequest;
+import com.thomsonreuters.aws.environment.elb.request.IDeregisterTargetsRequest;
 
 public class DeregisterTargetsRequestImpl implements IDeregisterTargetsRequest, IDeregisterTargetsRequestRaw {
 	

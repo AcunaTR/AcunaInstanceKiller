@@ -1,7 +1,9 @@
-package com.thomsonreuters.aws.environment.elb.targets.impl;
+package com.thomsonreuters.aws.environment.elb.request.impl;
+
+import java.util.Arrays;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetGroupsRequest;
-import com.thomsonreuters.aws.environment.elb.targets.IDescribeTargetGroupsRequest;
+import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetGroupsRequest;
 
 public class DescribeTargetGroupsRequestImpl implements IDescribeTargetGroupsRequest, IDescribeTargetGroupsRequestRaw {
 
@@ -15,4 +17,9 @@ public class DescribeTargetGroupsRequestImpl implements IDescribeTargetGroupsReq
     public DescribeTargetGroupsRequest getRaw() {
         return _req;
     }
+
+	@Override
+	public void setName(String name) {
+		_req.setNames(Arrays.asList(name));
+	}
 }

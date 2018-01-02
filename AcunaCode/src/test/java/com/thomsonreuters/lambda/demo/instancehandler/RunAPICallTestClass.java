@@ -7,13 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thomsonreuters.aws.ec2.IEC2;
-import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.reservation.IReservation;
-import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.lambda.demo.InstanceHandler;
-import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
-import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestFactoryStub;
 import com.thomsonreuters.lambda.demo.stubs.DescribeEC2sRequestStub;
 import com.thomsonreuters.lambda.demo.stubs.EC2EnvStub;

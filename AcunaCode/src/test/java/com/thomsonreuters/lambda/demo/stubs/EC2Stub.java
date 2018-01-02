@@ -2,11 +2,13 @@ package com.thomsonreuters.lambda.demo.stubs;
 
 import java.util.Date;
 
+import com.amazonaws.services.ec2.model.Instance;
 import com.thomsonreuters.aws.ec2.IEC2;
+import com.thomsonreuters.aws.ec2.impl.IEC2Raw;
 import com.thomsonreuters.aws.iam.instanceprofile.IInstanceProfile;
 import com.thomsonreuters.aws.tag.ITags;
 
-public class EC2Stub implements IEC2 {
+public class EC2Stub implements IEC2, IEC2Raw {
 
 	private ITags _name;
 	private Date _launchTime;
@@ -47,6 +49,11 @@ public class EC2Stub implements IEC2 {
 	@Override
 	public IInstanceProfile getIamInstanceProfile() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Instance getRaw() {
 		return null;
 	}
 

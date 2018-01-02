@@ -175,7 +175,7 @@ public class CheckEC2sTestClass {
 		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			IEC2s ec2Result = InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
+			InstanceHandler.getInstanceByTagname(ec2Env, "random.server.name", reqFactory);
 			fail("expected exception - InvalidInstancesException");
 		}catch (InvalidInstancesException e) {
 			Assert.assertTrue(true);
@@ -187,18 +187,18 @@ public class CheckEC2sTestClass {
 	
 	@Test //TODO test works if 'checkEc2s' is made public 
 	public void testCheckOneEmptyListIEC2s() {
-		IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
+		/*IDescribeEC2sRequest reqStub = new DescribeEC2sRequestStub();
 		DescribeEC2sRequestFactoryStub reqFactory = new DescribeEC2sRequestFactoryStub(reqStub);
-		IEC2 ec2 = new EC2Stub("otherrandom.server.name",null);
-		EC2sStub ec2s = new EC2sStub(ec2);
-		IEC2s ec2Result = ec2s.empty();
-		ReservationStub reservation = new ReservationStub(ec2Result);
-		ReservationsStub reservations = new ReservationsStub(reservation);
+		IEC2 ec2 = new EC2Stub("otherrandom.server.name",null);*/
+		EC2sStub ec2s = new EC2sStub();
+		//IEC2s ec2Result = ec2s.empty();
+		//ReservationStub reservation = new ReservationStub(ec2Result);
+		//ReservationsStub reservations = new ReservationsStub(reservation);
 		
-		EC2EnvStub ec2Env = new EC2EnvStub(reservations);
+		//EC2EnvStub ec2Env = new EC2EnvStub(reservations);
 
 		try {
-			InstanceHandler.checkEc2s(ec2Result, "random.server.name");
+			InstanceHandler.checkEc2s(ec2s, "random.server.name");
 			fail("expected exception - Empty Reservation Exception not thrown");
 		}catch (EmptyReservationException e) {
 			Assert.assertTrue(true);

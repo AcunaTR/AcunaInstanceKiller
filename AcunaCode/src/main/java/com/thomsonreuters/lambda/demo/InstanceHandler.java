@@ -30,7 +30,7 @@ public class InstanceHandler {
 		if (checkEc2s(ec2s, serverName)) {
 			return ec2s;
 		}
-		throw new InvalidInstancesException("EC2s returned did not match - " + serverName + "/n Actual result - " + ec2s.get(0).getTags().toString());
+		throw new InvalidInstancesException("EC2s returned did not match - " + serverName + "/n Actual result - " + ec2s.get(0).getTags().getTag("Name").toString());
 		
 	}
 

@@ -51,4 +51,8 @@ public class TagsImpl implements ITags {
 		return _tags.get(key).getValue();
 	}
 
+	@Override
+	public String toString() {
+		return _tags.toString();
+	}
 }

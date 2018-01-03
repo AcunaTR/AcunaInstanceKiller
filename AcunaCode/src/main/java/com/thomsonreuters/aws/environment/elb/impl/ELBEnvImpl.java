@@ -36,4 +36,9 @@ public class ELBEnvImpl implements IELBEnv {
 		IDescribeTargetHealthRequestRaw raw = (IDescribeTargetHealthRequestRaw) request;
 		return _env.describeTargetHealth(raw.getRaw());
 	}
+	
+	@Override
+	public String toString() {
+		return _env.toString();
+	}
 }

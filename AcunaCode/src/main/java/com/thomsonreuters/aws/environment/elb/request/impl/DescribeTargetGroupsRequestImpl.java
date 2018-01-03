@@ -22,4 +22,9 @@ public class DescribeTargetGroupsRequestImpl implements IDescribeTargetGroupsReq
 	public void setName(String name) {
 		_req.setNames(Arrays.asList(name));
 	}
+	
+	@Override
+	public String toString() {
+		return _req.toString();
+	}
 }

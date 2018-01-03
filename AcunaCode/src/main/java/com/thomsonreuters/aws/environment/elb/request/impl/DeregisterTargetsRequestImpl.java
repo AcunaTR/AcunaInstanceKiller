@@ -15,4 +15,9 @@ public class DeregisterTargetsRequestImpl implements IDeregisterTargetsRequest, 
     public DeregisterTargetsRequest getRaw() {
         return _req;
     }
+    
+    @Override
+	public String toString() {
+		return _req.toString();
+	}
 }

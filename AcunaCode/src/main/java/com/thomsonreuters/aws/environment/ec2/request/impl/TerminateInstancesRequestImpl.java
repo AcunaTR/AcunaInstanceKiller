@@ -24,5 +24,10 @@ public class TerminateInstancesRequestImpl implements ITerminateInstancesRequest
 	public void setInstanceIds(List<String> instanceIds) {
 		_req.setInstanceIds(instanceIds);
 	}
+	
+	@Override
+	public String toString() {
+		return _req.toString();
+	}
 
 }

@@ -58,4 +58,9 @@ public class FilterImpl implements IFilter, IFilterRaw {
         return new Filter(_name, _values);
     }
     
+    @Override
+	public String toString() {
+		return _name + _values.toString();
+	}
+    
 }

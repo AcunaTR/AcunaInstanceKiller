@@ -33,4 +33,9 @@ public class TagImpl implements ITag {
     public String getValue() {
         return _tag.getValue();
     }
+    
+    @Override
+	public String toString() {
+		return _tag.toString();
+	}
 }

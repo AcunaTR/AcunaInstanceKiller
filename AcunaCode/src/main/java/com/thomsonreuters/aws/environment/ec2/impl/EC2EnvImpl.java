@@ -25,28 +25,33 @@ import com.thomsonreuters.aws.reservation.impl.ReservationsImpl;
  */
 public class EC2EnvImpl implements IEC2Env {
 	    
-    private final AmazonEC2 _ec2;
+    private final AmazonEC2 _env;
 
     public EC2EnvImpl() {
-        _ec2 = AmazonEC2ClientBuilder.defaultClient();
+        _env = AmazonEC2ClientBuilder.defaultClient();
     }
 
     @Override
     public IAmis describeAmis(IDescribeAmisRequest request) {
         IDescribeAmisRequestRaw raw = (IDescribeAmisRequestRaw)request;
-        return new AmisImpl(_ec2.describeImages(raw.getRaw()).getImages());
+        return new AmisImpl(_env.describeImages(raw.getRaw()).getImages());
     }
 
     @Override
     public IReservations describeEC2s(IDescribeEC2sRequest request) {
         IDescribeEC2sRequestRaw raw = (IDescribeEC2sRequestRaw)request;
-        return new ReservationsImpl(_ec2.describeInstances(raw.getRaw()).getReservations());
+        return new ReservationsImpl(_env.describeInstances(raw.getRaw()).getReservations());
     }
 
 	@Override
 	public void terminateInstances(ITerminateInstancesRequest req) {
 		ITerminateInstancesRequestRaw raw = (ITerminateInstancesRequestRaw) req;
-		_ec2.terminateInstances(raw.getRaw());
+		_env.terminateInstances(raw.getRaw());
 		
+	}
+	
+	@Override
+	public String toString() {
+		return _env.toString();
 	}
 }

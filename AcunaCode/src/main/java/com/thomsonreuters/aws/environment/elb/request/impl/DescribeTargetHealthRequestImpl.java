@@ -20,5 +20,10 @@ public class DescribeTargetHealthRequestImpl implements IDescribeTargetHealthReq
 	public void setArn(String targetGroupArn) {
 		_req.setTargetGroupArn(targetGroupArn);
 	}
+	
+	@Override
+	public String toString() {
+		return _req.toString();
+	}
 
 }

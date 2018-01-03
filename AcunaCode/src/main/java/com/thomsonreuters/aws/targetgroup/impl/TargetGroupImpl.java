@@ -40,4 +40,8 @@ public class TargetGroupImpl implements ITargetGroup {
 		return ids;
 	}
 
+	@Override
+	public String toString() {
+		return _targetGroup.toString();
+	}
 }

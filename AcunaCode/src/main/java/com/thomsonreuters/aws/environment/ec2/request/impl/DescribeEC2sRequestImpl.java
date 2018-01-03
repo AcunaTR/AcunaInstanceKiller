@@ -38,4 +38,9 @@ public class DescribeEC2sRequestImpl implements IDescribeEC2sRequest, IDescribeE
         IFiltersRaw raw = (IFiltersRaw) filters;
         _filters.addAll(raw.getRaw());
     }
+    
+    @Override
+	public String toString() {
+		return _req.toString() + _filters.toString();
+	}
 }

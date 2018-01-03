@@ -28,4 +28,9 @@ public class TargetGroupsImpl implements ITargetGroups {
     public ITargetGroup get(int idx) {
         return new TargetGroupImpl(_targetGroups.get(idx));
     }
+    
+    @Override
+	public String toString() {
+		return _targetGroups.toString();
+	}
 }

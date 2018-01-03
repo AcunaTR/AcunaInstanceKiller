@@ -32,4 +32,9 @@ public class DescribeAmisRequestImpl implements IDescribeAmisRequest, IDescribeA
     public DescribeImagesRequest getRaw() {
         return _req;
     }
+    
+    @Override
+	public String toString() {
+		return _req.toString();
+	}
 }

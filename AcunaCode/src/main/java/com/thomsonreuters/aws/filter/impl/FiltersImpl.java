@@ -57,4 +57,9 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
         _filters.forEach(filter -> filters.add(new FilterImpl(filter)));
         return filters;
     }
+    
+    @Override
+	public String toString() {
+		return _filters.toString();
+	}
 }

@@ -20,4 +20,9 @@ public class InstanceProfileImpl implements IInstanceProfile {
     public String getArn() {
         return _instProf.getArn();
     }
+    
+    @Override
+	public String toString() {
+		return _instProf.toString();
+	}
 }

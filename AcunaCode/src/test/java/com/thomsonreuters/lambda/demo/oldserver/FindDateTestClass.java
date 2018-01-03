@@ -55,7 +55,7 @@ public class FindDateTestClass {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR, bufferHours);
 		Date cutOffDate = OldServer.getCutOffDate(now, buffer);
-		Assert.assertEquals(cal.getTime(), cutOffDate);	
+		Assert.assertTrue(cal.getTime().equals(cutOffDate));	
 	}
 	
 	@Test //?same as above

@@ -55,4 +55,9 @@ public class EC2Impl implements IEC2, IEC2Raw {
 	public Instance getRaw() {
 		return _ec2;
 	}	
+	
+	@Override
+	public String toString() {
+		return _ec2.toString();
+	}
 }

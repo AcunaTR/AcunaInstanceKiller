@@ -65,4 +65,8 @@ public class EC2sImpl implements IEC2s, IEC2sRaw {
 		_ec2s.add(raw.getRaw());	
 	}
 
+	@Override
+	public String toString() {
+		return _ec2s.toString();
+	}
 }

@@ -37,4 +37,9 @@ public class AmisImpl implements IAmis {
     public IAmi get(int idx) {
         return new AmiImpl(_amis.get(idx));
     }
+    
+    @Override
+	public String toString() {
+		return _amis.toString();
+	}
 }

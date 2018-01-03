@@ -35,11 +35,11 @@ public class OldServer {
 		for(int i=0; i<oldServers.size(); i++) {
 			String id = oldServers.get(i).getInstanceID();
 			if(targetIDs.contains(id)) {
-				return false;
+				return true;
 			}
 		}
 		
-		return true;
+		return false;
 	}
 
 	public static IEC2s findOldInstances(IEC2s instances, Date cutOffDate) {

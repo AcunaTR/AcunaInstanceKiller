@@ -36,4 +36,9 @@ public class AmiImpl implements IAmi {
     public String getImageName() {
         return _ami.getName();
     }
+    
+    @Override
+	public String toString() {
+		return _ami.toString();
+	}
 }

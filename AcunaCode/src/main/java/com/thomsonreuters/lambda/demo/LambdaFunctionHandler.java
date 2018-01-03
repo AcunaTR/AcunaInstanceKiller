@@ -72,7 +72,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         
        
         ITerminateInstancesRequestFactory terminateReqFactory = new TerminateInstancesRequestFactory();	
-		TerminateServers.terminateInstances(oldServers, ec2Env, null);        
+		TerminateServers.terminateInstances(oldServers, ec2Env, terminateReqFactory);        
         
         
         

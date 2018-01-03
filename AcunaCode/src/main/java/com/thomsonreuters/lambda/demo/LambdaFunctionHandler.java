@@ -26,6 +26,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
 	private static final String ERROR_TOPIC_ARN = "arn:aws:sns:us-east-1:015887481462:AcunaLambdaFailTopic";
 	private static final int BUFFER = 5;
+	private static final String SERVER_NAME = "acuna.jenkins.server";
 	
     @Override
     public String handleRequest(Object input, Context context) {
@@ -54,7 +55,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
     	IEC2Env ec2Env = EC2Env.create();
     	IDescribeEC2sRequestFactory factory = new DescribeEC2sRequestFactory();
  	
-    	return InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
+    	return InstanceHandler.getInstanceByTagname(ec2Env, SERVER_NAME, factory);
 
     }
 

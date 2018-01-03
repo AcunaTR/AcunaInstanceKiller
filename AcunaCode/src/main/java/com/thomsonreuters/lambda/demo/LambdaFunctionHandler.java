@@ -25,72 +25,46 @@ import com.thomsonreuters.lambda.demo.factories.impl.TerminateInstancesRequestFa
 public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
 	private static final String ERROR_TOPIC_ARN = "arn:aws:sns:us-east-1:015887481462:AcunaLambdaFailTopic";
+	private static final int BUFFER = 5;
 	
     @Override
     public String handleRequest(Object input, Context context) {
         context.getLogger().log("Input: " + input);
-        IEC2Env ec2Env = EC2Env.create();
-        ISNSEnv snsEnv = SNSEnv.create();
-        IDescribeEC2sRequestFactory factory = new DescribeEC2sRequestFactory();
-        
-        IEC2s allServers;
         
         try {
         	
-        	allServers = InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
-
-        } catch (InvalidInstancesException e) {
-			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught InvalidInstancesException - " + e.getMessage());
-			return "Caught InvalidInstancesException - " + e.getMessage();
-		} catch (NoInstancesException e) {
-			context.getLogger().log("Caught NoInstancesException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught NoInstancesException - " + e.getMessage());
-			return "Caught NoInstancesException - " + e.getMessage();
-		} catch (EmptyReservationException e) {
-			context.getLogger().log("Caught EmptyReservationException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught EmptyReservationException - " + e.getMessage());
-			return "Caught EmptyReservationException - " + e.getMessage();
-		} catch (NoReservationException e) {
-			context.getLogger().log("Caught NoReservationException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught NoReservationException - " + e.getMessage());
-			return "Caught NoReservationException - " + e.getMessage();
-		}
-        
-        int buffer = 5;
-        
-        IELBEnv elbEnv = ELBEnv.create();
-        IDescribeTargetGroupsRequestFactory reqFactory = new DescribeTargetGroupsRequestFactory();
-        IEC2s oldServers;
-        
-        try {
-        	
-			oldServers = OldServer.identifyOldServers(elbEnv, buffer, allServers, reqFactory);
+			terminateOldServers(getOldServers(getAllServers()));
 			
-		} catch (InvalidInstancesException e) {
-			context.getLogger().log("Caught InvalidInstancesException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught InvalidInstancesException - " + e.getMessage());
-			return "Caught InvalidInstancesException - " + e.getMessage();
-		} catch (NoTargetGroupException e) {
-			context.getLogger().log("Caught NoTargetGroupException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught NoTargetGroupException - " + e.getMessage());
-			return "Caught NoTargetGroupException - " + e.getMessage();
-		} catch (InvalidTargetGroupsException e) {
-			context.getLogger().log("Caught InvalidTargetGroupsException - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught InvalidTargetGroupsException - " + e.getMessage());
-			return "Caught InvalidTargetGroupsException - " + e.getMessage();
-		}
-
-        
-       
-        ITerminateInstancesRequestFactory terminateReqFactory = new TerminateInstancesRequestFactory();	
-		TerminateServers.terminateInstances(oldServers, ec2Env, terminateReqFactory);        
-        
-        
-        
+		} catch (InvalidInstancesException | NoTargetGroupException | InvalidTargetGroupsException
+				| NoInstancesException | EmptyReservationException | NoReservationException e) {
+			
+			ISNSEnv snsEnv = SNSEnv.create();
+			
+			context.getLogger().log("Caught Exception - " + e.getMessage());
+			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught Exception - " + e.getMessage());
+			return "Caught Exception - " + e.getMessage();
+		}      
                
         return "woot!";
-        
-
     }  
+    
+    private IEC2s getAllServers() throws InvalidInstancesException, NoInstancesException, EmptyReservationException, NoReservationException{
+    	IEC2Env ec2Env = EC2Env.create();
+    	IDescribeEC2sRequestFactory factory = new DescribeEC2sRequestFactory();
+ 	
+    	return InstanceHandler.getInstanceByTagname(ec2Env, "acuna.jenkins.server", factory);
+
+    }
+
+    private IEC2s getOldServers(IEC2s allServers) throws InvalidInstancesException, NoTargetGroupException, InvalidTargetGroupsException {
+    	IELBEnv elbEnv = ELBEnv.create();
+        IDescribeTargetGroupsRequestFactory reqFactory = new DescribeTargetGroupsRequestFactory();
+        return OldServer.identifyOldServers(elbEnv, BUFFER, allServers, reqFactory);
+    }
+
+    private void terminateOldServers(IEC2s oldServers) {
+    	IEC2Env ec2Env = EC2Env.create();
+    	ITerminateInstancesRequestFactory terminateReqFactory = new TerminateInstancesRequestFactory();	
+		TerminateServers.terminateInstances(oldServers, ec2Env, terminateReqFactory);  
+    }
 }

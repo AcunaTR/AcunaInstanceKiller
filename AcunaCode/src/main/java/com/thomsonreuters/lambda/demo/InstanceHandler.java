@@ -30,7 +30,7 @@ public class InstanceHandler {
 		if (checkEc2s(ec2s, serverName)) {
 			return ec2s;
 		}
-		throw new InvalidInstancesException("EC2s returned did not match - " + serverName + " - Actual result - " + ec2s.get(0).getTags().getValue("Name"));
+		throw new InvalidInstancesException("InvalidInstancesException - EC2s returned did not match - " + serverName + " - Actual result - " + ec2s.get(0).getTags().getValue("Name"));
 		
 	}
 
@@ -55,15 +55,15 @@ public class InstanceHandler {
 
 	private static IEC2s parsingEC2s(IReservations res) throws EmptyReservationException, NoReservationException {// separate utility class and tests?
 		if (res == null) { 
-			throw new NoReservationException("No reservations found");
+			throw new NoReservationException("NoReservationException - No reservations found");
 		}
 		if (res.isEmpty()) {
-		throw new EmptyReservationException("No reservations found");
+		throw new EmptyReservationException("EmptyReservationException - No reservations found");
 		}
 		
 		IEC2s ec2s = res.get(0).getInstances();
 		if ((ec2s == null) || (ec2s.isEmpty())) {
-			throw new EmptyReservationException("Reservation contains no instances");
+			throw new EmptyReservationException("EmptyReservationException - Reservation contains no instances");
 		}
 		
 		IEC2s fullList = ec2s.clone();
@@ -71,7 +71,7 @@ public class InstanceHandler {
 		for (int i = 1; i <res.size(); i++) {
 			ec2s = res.get(i).getInstances();
 			if ((ec2s == null) || (ec2s.isEmpty())) {
-				throw new EmptyReservationException("Reservation contains no instances");
+				throw new EmptyReservationException("EmptyReservationException - Reservation contains no instances");
 			}
 			fullList.addAll(ec2s);
 		}

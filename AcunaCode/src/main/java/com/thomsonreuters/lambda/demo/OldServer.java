@@ -27,7 +27,7 @@ public class OldServer {
 		}
 		throw new InvalidInstancesException("InvalidInstancesException - Servers still connected to ELB - number of servers = " + oldServers.size() + " - oldServers.tostring = " +oldServers.toString());
 
-	
+	}
 	
 	private static boolean connectedToELB(IELBEnv elbEnv, IEC2s oldServers, IDescribeTargetGroupsRequestFactory reqFactory) throws NoTargetGroupException, InvalidTargetGroupsException {
 		ITargetGroup targetGroup = ELBHandler.getTargetGroup(elbEnv, reqFactory);

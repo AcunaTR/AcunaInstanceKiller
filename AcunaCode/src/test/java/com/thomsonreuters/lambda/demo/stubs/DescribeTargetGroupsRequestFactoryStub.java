@@ -5,7 +5,7 @@ import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFact
 
 public class DescribeTargetGroupsRequestFactoryStub implements IDescribeTargetGroupsRequestFactory {
 
-	public DescribeTargetGroupsRequestFactoryStub(ELBEnvStub elbEnv) {
+	public DescribeTargetGroupsRequestFactoryStub(IDescribeTargetGroupsRequest reqStub) {
 		// TODO Auto-generated constructor stub
 	}
 

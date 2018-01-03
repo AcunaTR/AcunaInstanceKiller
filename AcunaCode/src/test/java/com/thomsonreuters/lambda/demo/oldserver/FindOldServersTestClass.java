@@ -49,14 +49,14 @@ public class FindOldServersTestClass {
 
 
 
-	@Test
+	@Test // changed assert to 1 from 0 for debug test
 	public void testInstanceBornAfterCutOffDate() {
 		IEC2 ec2 = new EC2Stub("random.server.name",now);
 		EC2sStub ec2s = new EC2sStub(ec2);
 		
 		try {
 			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
-			Assert.assertEquals(0, oldInstanceIDs.size());
+			Assert.assertEquals(1, oldInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}

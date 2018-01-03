@@ -25,7 +25,7 @@ public class OldServer {
 		if(!connectedToELB(elbEnv, oldServers, reqFactory)) {
 			return oldServers;
 		}
-		throw new InvalidInstancesException("Servers still connected to ELB");
+		throw new InvalidInstancesException("Servers still connected to ELB - number of servers = " + oldServers.size() + " - oldServers.tostring = " +oldServers.toString());
 
 	}
 	

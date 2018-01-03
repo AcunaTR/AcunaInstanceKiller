@@ -33,7 +33,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         
         try {
         	
-			terminateOldServers(getOldServers(getAllServers()));
+			terminateServers(getOldServers(getAllServers()));
 			
 		} catch (InvalidInstancesException | NoTargetGroupException | InvalidTargetGroupsException
 				| NoInstancesException | EmptyReservationException | NoReservationException e) {
@@ -64,9 +64,9 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
         return OldServer.identifyOldServers(elbEnv, BUFFER, allServers, reqFactory);
     }
 
-    private void terminateOldServers(IEC2s oldServers) {
+    private void terminateServers(IEC2s servers) {
     	IEC2Env ec2Env = EC2Env.create();
     	ITerminateInstancesRequestFactory terminateReqFactory = new TerminateInstancesRequestFactory();	
-		TerminateServers.terminateInstances(oldServers, ec2Env, terminateReqFactory);  
+		TerminateServers.terminateInstances(servers, ec2Env, terminateReqFactory);  
     }
 }

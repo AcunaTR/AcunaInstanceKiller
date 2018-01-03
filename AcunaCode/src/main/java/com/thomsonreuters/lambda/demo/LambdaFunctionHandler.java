@@ -40,9 +40,11 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			
 			ISNSEnv snsEnv = SNSEnv.create();
 			
-			context.getLogger().log("Caught Exception - " + e.getMessage());
-			snsEnv.publish(ERROR_TOPIC_ARN, "AcunaLambdaKillter failed to execute - Caught Exception - " + e.getMessage());
-			return "Caught Exception - " + e.getMessage();
+			String errorMessage = "AcunaLambdaKillter failed to execute - Caught Exception - " + e.getMessage();
+			
+			context.getLogger().log(errorMessage);
+			snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
+			return errorMessage;
 		}      
                
         return "woot!";

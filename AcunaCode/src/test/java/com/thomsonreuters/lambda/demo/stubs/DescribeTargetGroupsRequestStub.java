@@ -7,6 +7,7 @@ public class DescribeTargetGroupsRequestStub implements IDescribeTargetGroupsReq
 	@Override
 	public void setName(String name) {
 		// TODO Auto-generated method stub
+		
 
 	}
 

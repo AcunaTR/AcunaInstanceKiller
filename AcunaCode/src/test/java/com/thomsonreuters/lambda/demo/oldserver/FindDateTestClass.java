@@ -49,14 +49,14 @@ public class FindDateTestClass {
 	}
 	
 	
-	@Test
+/*	@Test
 	public void testBufferDistanceBetweenCutoffAndToday() {
 		int bufferHours = -24*buffer;
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR, bufferHours);
 		Date cutOffDate = OldServer.getCutOffDate(now, buffer);
 		Assert.assertTrue(cal.getTime().equals(cutOffDate));	
-	}
+	} */
 	
 	@Test //?same as above
 	public void testCutoffTimeIsBeforeToday() {

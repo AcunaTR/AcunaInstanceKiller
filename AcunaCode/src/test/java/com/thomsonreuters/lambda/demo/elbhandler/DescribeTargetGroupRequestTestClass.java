@@ -31,6 +31,8 @@ public class DescribeTargetGroupRequestTestClass {
 		
 		try {
 			ELBHandler.getTargetGroup(elbEnv, reqFactory);
+			fail("Expected NullPointerException not thrown");
+		} catch (NullPointerException e) {
 			Assert.assertEquals(1,reqFactory.getNameCounter());
 			//has name run, is name right
 		} catch (Exception e) {

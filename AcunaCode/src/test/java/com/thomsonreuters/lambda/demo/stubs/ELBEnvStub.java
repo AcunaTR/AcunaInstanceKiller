@@ -15,6 +15,9 @@ public class ELBEnvStub implements IELBEnv {
 	private IDescribeTargetGroupsRequest _req;
 	private List<ITargetGroup> _targetGroup;
 	
+	public ELBEnvStub() {
+	}
+	
 	@Override
 	public ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req) {
 

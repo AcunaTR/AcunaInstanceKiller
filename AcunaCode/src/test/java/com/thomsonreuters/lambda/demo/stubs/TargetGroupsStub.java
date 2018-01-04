@@ -15,6 +15,9 @@ public class TargetGroupsStub implements ITargetGroups {
 		_itgs.add(itg);
 	}
 	
+	public void addTargetGroup(ITargetGroup itg) {
+		_itgs.add(itg);
+	}
 
 	@Override
 	public int size() {
@@ -30,8 +33,13 @@ public class TargetGroupsStub implements ITargetGroups {
 
 	@Override
 	public ITargetGroup get(int idx) {
+		return _itgs.get(idx);
+	}
+
+
+	public void add(ITargetGroup targetGroup) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

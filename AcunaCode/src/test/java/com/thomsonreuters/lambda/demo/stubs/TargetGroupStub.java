@@ -25,4 +25,8 @@ public class TargetGroupStub implements ITargetGroup {
 		return null;
 	}
 
+	public String getName() {
+		return _name;
+	}
+	
 }

@@ -9,9 +9,12 @@ import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 
 public class ELBEnvStub implements IELBEnv {
 
+	private IDescribeTargetGroupsRequest _req;
+	
 	@Override
 	public ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req) {
-		// TODO Auto-generated method stub
+		_req = req;
+		
 		return null;
 	}
 

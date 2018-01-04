@@ -3,7 +3,6 @@ package com.thomsonreuters.lambda.demo.oldserver;
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.SimpleTimeZone;
 
@@ -49,7 +48,7 @@ public class FindDateTestClass {
 	}
 	
 	
-/*	@Test
+/*	@Test // randomly fails - don't know why
 	public void testBufferDistanceBetweenCutoffAndToday() {
 		int bufferHours = -24*buffer;
 		Calendar cal = Calendar.getInstance();

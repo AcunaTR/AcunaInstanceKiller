@@ -19,12 +19,11 @@ public class ELBHandler {
 		throw new InvalidTargetGroupsException("InvalidTargetGroupsException - Target group named - acuna-jenkins-load-ballancer not found");
 	}
 
-	private static boolean checkTargetGroups(ITargetGroups res) throws NoTargetGroupException {
-		if(res.size() == 0) {
+	public static boolean checkTargetGroups(ITargetGroups res) throws NoTargetGroupException {
+		if (res.size() == 0) {
 			throw new NoTargetGroupException("NoTargetGroupException - No target group found with name - acuna-jenkins-load-ballancer");
 		}
-		
-		return true;
+	return true;
 	}
 
 	private static ITargetGroups runApiCall(IDescribeTargetGroupsRequest req, IELBEnv elbEnv) {

@@ -1,5 +1,6 @@
 package com.thomsonreuters.lambda.demo.stubs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthResult;
@@ -12,19 +13,31 @@ import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 
 public class ELBEnvStub implements IELBEnv {
 
-	private IDescribeTargetGroupsRequest _req;
-	private List<ITargetGroup> _targetGroup;
+	
+	private int _describeTargetGroupsCounter;
+	//private IDescribeTargetGroupsRequest _req;
+	//private List<ITargetGroup> _targetGroups;
 	
 	public ELBEnvStub() {
+		_describeTargetGroupsCounter = 0;
 	}
+	
+
 	
 	@Override
 	public ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req) {
+		_describeTargetGroupsCounter++;
+		ITargetGroups targetGroup =  null;
 
-		ITargetGroup targetGroup = null;
-		_targetGroup.add(targetGroup);
-		ITargetGroups targetGroups = (ITargetGroups) _targetGroup;
-		return targetGroups;
+		//= new ITargetGroups(targetGroup);
+		
+		 
+		/* ITargetGroups targetGroups = (ITargetGroups) _targetGroup;
+		_req=req;
+	//	return targetGroups; 
+		
+		return (ITargetGroups) req; */
+		return  targetGroup;
 	}
 
 	@Override
@@ -39,4 +52,16 @@ public class ELBEnvStub implements IELBEnv {
 		return null;
 	}
 
+	public int getDescribeTargetGroupsCounter() {
+		return 	_describeTargetGroupsCounter;
+	}
+	
+	
+//	public void addTargetGroup(ITargetGroup targetGroup) {
+//		 _targetGroups.add(targetGroup);
+//	}
+	
+//	public int targetGroupArraySize() {
+//		return _targetGroups.size();		
+//	}
 }

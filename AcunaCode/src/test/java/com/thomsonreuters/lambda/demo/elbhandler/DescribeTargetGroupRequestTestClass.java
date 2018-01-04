@@ -26,18 +26,46 @@ public class DescribeTargetGroupRequestTestClass {
 		IDescribeTargetGroupsRequest reqStub = new DescribeTargetGroupsRequestStub();
 		DescribeTargetGroupsRequestFactoryStub reqFactory = new DescribeTargetGroupsRequestFactoryStub(reqStub);
 		ELBEnvStub elbEnv = new ELBEnvStub();
-		//reqFactory.setName("acuna-jenkins-load-ballancer");
-		
 		
 		try {
 			ELBHandler.getTargetGroup(elbEnv, reqFactory);
 			fail("Expected NullPointerException not thrown");
 		} catch (NullPointerException e) {
 			Assert.assertEquals(1,reqFactory.getNameCounter());
-			//has name run, is name right
 		} catch (Exception e) {
 			fail("Unexpected exception - " + reqFactory.getNameCounter() +" - " + e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testCorrectNameSet() {
+		IDescribeTargetGroupsRequest reqStub = new DescribeTargetGroupsRequestStub();
+		DescribeTargetGroupsRequestFactoryStub reqFactory = new DescribeTargetGroupsRequestFactoryStub(reqStub);
+		ELBEnvStub elbEnv = new ELBEnvStub();
+		
+		try {
+			ELBHandler.getTargetGroup(elbEnv, reqFactory);
+			fail("Expected NullPointerException not thrown");
+		} catch (NullPointerException e) {
+			Assert.assertEquals("acuna-jenkins-load-ballancer",reqFactory.getName());
+		} catch (Exception e) {
+			fail("Unexpected exception - " + reqFactory.getName() +" - " + e.getMessage());
+		}
+	}
 
+	@Test
+	public void testCreateRequestRan() {
+		IDescribeTargetGroupsRequest reqStub = new DescribeTargetGroupsRequestStub();
+		DescribeTargetGroupsRequestFactoryStub reqFactory = new DescribeTargetGroupsRequestFactoryStub(reqStub);
+		ELBEnvStub elbEnv = new ELBEnvStub();
+		
+		try {
+			ELBHandler.getTargetGroup(elbEnv, reqFactory);
+			fail("Expected NullPointerException not thrown");
+		} catch (NullPointerException e) {
+			Assert.assertEquals(1,reqFactory.getCreateRequestCounter());
+		} catch (Exception e) {
+			fail("Unexpected exception - " + reqFactory.getCreateRequestCounter() +" - " + e.getMessage());
+		}
+	}
 }

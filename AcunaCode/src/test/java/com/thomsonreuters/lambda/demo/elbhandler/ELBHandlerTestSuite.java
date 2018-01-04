@@ -5,7 +5,9 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	DescribeTargetGroupRequestTestClass.class
+	DescribeTargetGroupRequestTestClass.class,
+	RunTargetGroupAPICallTestClass.class,
+	CheckTargetGroupsTestClass.class
 })
 
 public class ELBHandlerTestSuite {

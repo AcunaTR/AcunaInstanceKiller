@@ -7,21 +7,26 @@ public class DescribeTargetGroupsRequestFactoryStub implements IDescribeTargetGr
 
 	private static int _setNameCounter; 
 	private IDescribeTargetGroupsRequest _req;
+	private String _name;
+	private static int _createRequestCounter;
+	
 	
 	
 	public DescribeTargetGroupsRequestFactoryStub(IDescribeTargetGroupsRequest reqStub) {
 		_setNameCounter = 0;
+		_createRequestCounter = 0;
 		_req = reqStub;
 	}
 
 	@Override
 	public void setName(String name) {
 		_setNameCounter ++;
-
+		_name = name;
 	}
 
 	@Override
 	public IDescribeTargetGroupsRequest createRequest() {
+		_createRequestCounter ++;
 		return _req;
 	}
 	
@@ -29,6 +34,14 @@ public class DescribeTargetGroupsRequestFactoryStub implements IDescribeTargetGr
 	public int getNameCounter() {
 		return _setNameCounter;
 
+	}
+
+	public String getName() {
+		return _name;
+	}
+	
+	public int getCreateRequestCounter() {
+		return _createRequestCounter;
 	}
 
 }

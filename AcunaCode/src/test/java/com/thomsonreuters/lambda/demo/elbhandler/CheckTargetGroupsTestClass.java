@@ -65,7 +65,7 @@ public class CheckTargetGroupsTestClass {
 
 	} 
 	
-	@Test
+/*	@Test
 	public void testValidTargetGroup() {
 		
 		IDescribeTargetGroupsRequest reqStub = new DescribeTargetGroupsRequestStub();
@@ -107,7 +107,7 @@ public class CheckTargetGroupsTestClass {
 		ELBEnvStub elbEnv = new ELBEnvStub();
 		
 		
-	}
+	} */
 
 
 

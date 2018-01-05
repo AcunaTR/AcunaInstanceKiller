@@ -48,8 +48,8 @@ public class ELBEnvStub implements IELBEnv {
 		return null;
 	}
 	
-	public String getTargetGroupName() {
-		_itgs.get(0).
-	}
+//	public String getTargetGroupName() {
+//		_itgs.get(0).
+//	}
 
 }

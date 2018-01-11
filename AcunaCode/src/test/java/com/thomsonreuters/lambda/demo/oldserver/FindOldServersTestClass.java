@@ -49,7 +49,7 @@ public class FindOldServersTestClass {
 
 
 
-	@Test
+	@Test 
 	public void testInstanceBornAfterCutOffDate() {
 		IEC2 ec2 = new EC2Stub("random.server.name",now);
 		EC2sStub ec2s = new EC2sStub(ec2);

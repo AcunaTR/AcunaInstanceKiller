@@ -1,40 +1,39 @@
-package com.thomsonreuters.lambda.demo.stubs;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.thomsonreuters.lambda.demo.elbhandler.CheckTargetGroupsStubs;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthResult;
+import com.thomsonreuters.aws.ami.IAmis;
+import com.thomsonreuters.aws.environment.ec2.IEC2Env;
+import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
+import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
+import com.thomsonreuters.aws.environment.ec2.request.ITerminateInstancesRequest;
 import com.thomsonreuters.aws.environment.elb.IELBEnv;
 import com.thomsonreuters.aws.environment.elb.request.IDeregisterTargetsRequest;
 import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetGroupsRequest;
 import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetHealthRequest;
+import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 import com.thomsonreuters.aws.targetgroup.ITargetGroups;
+import com.thomsonreuters.lambda.demo.stubs.TargetGroupStub;
+import com.thomsonreuters.lambda.demo.stubs.TargetGroupsStub;
 
 public class ELBEnvStub implements IELBEnv {
-
 	
 	private int _describeTargetGroupsCounter;
 	private ITargetGroups _itgs;
 	private IDescribeTargetGroupsRequest _req;
 	
-	//private IDescribeTargetGroupsRequest _req;
-	//private List<ITargetGroup> _targetGroups;
-	
 	public ELBEnvStub() {
 		_describeTargetGroupsCounter = 0;
-	//	ITargetGroup itg = new TargetGroupStub(name);
-	//	ITargetGroups targetGroups =  new TargetGroupsStub(itg);
-	//	_itgs = targetGroups;
+		ITargetGroup itg = new TargetGroupStub("acuna-jenkins-load-ballancer");
+		ITargetGroups targetGroups =  new TargetGroupsStub(itg);
+		_itgs = targetGroups;
 	}
 	
 
-	
 	@Override
 	public ITargetGroups describeTargetGroups(IDescribeTargetGroupsRequest req) {
-		_describeTargetGroupsCounter++;	
-	//	_request = req;
-		return  _itgs;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -48,17 +47,9 @@ public class ELBEnvStub implements IELBEnv {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public int getDescribeTargetGroupsCounter() {
-		return 	_describeTargetGroupsCounter;
-	}
 	
+//	public String getTargetGroupName() {
+//		_itgs.get(0).
+//	}
 
-//	public void addTargetGroups(ITargetGroup targetGroup) {
-//	 _itgs.add(targetGroup);
-//	}
-	
-//	public int targetGroupArraySize() {
-//		return _targetGroups.size();		
-//	}
 }

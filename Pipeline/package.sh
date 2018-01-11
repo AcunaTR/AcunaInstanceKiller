@@ -3,7 +3,7 @@
 function packageFail {
     echo "Maven package failed"
 }
-trap packageFail ERROR
+trap packageFail ERR
 
 CURDIR=`pwd`
 

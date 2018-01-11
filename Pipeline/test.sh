@@ -3,7 +3,7 @@
 function testFail {
     echo "Maven test failed"
 }
-trap testFail ERROR
+trap testFail ERR
 
 CURDIR=`pwd`
 

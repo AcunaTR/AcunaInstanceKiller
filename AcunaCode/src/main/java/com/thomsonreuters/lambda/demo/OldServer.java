@@ -58,6 +58,22 @@ public class OldServer {
 	}
 	
 	
+	public static IEC2s findRecentInstances(IEC2s instances, Date cutOffDate) {
+
+		IEC2s recentServers = EC2s.create();
+		
+		for (int i = 0; i < instances.size(); i++) {
+			
+			Date born = instances.get(i).getLaunchTime();
+    		if (born.after(cutOffDate)) {
+    			recentServers.add(instances.get(i));
+    		}
+		}
+		
+		return recentServers;
+	}
+	
+	
 	public static Date getCutOffDate(Date date, int buffer) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);

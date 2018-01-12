@@ -41,7 +41,9 @@ public class FindOldServersTestClass {
 		
 		try {
 			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
+			IEC2s recentInstanceIDs =  OldServer.findRecentInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(1, oldInstanceIDs.size());
+			Assert.assertEquals(0, recentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -56,7 +58,9 @@ public class FindOldServersTestClass {
 		
 		try {
 			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
+			IEC2s recentInstanceIDs =  OldServer.findRecentInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(0, oldInstanceIDs.size());
+			Assert.assertEquals(1, recentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}
@@ -75,7 +79,9 @@ public class FindOldServersTestClass {
 		EC2sStub ec2s = new EC2sStub(Arrays.asList(ec2a, ec2b, ec2c, ec2d, ec2e, ec2f, ec2g));
 		try {
 			IEC2s oldInstanceIDs =  OldServer.findOldInstances(ec2s, OldServer.getCutOffDate(now, buffer));
+			IEC2s recentInstanceIDs =  OldServer.findRecentInstances(ec2s, OldServer.getCutOffDate(now, buffer));
 			Assert.assertEquals(4, oldInstanceIDs.size());
+			Assert.assertEquals(3, recentInstanceIDs.size());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + e.getMessage());
 		}

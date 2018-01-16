@@ -5,9 +5,10 @@
  */
 package com.thomsonreuters.aws.tag.impl;
 
+import com.amazonaws.services.ec2.model.Tag;
+
 import com.thomsonreuters.aws.tag.ITag;
 import com.thomsonreuters.aws.tag.ITags;
-import com.amazonaws.services.ec2.model.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +24,7 @@ public class TagsImpl implements ITags {
     public TagsImpl(List<Tag> tags)
     {
     	_tags = new HashMap<>();
-    	for(Tag t : tags) {
-    		_tags.put(t.getKey(), t);
-    	}
+        tags.forEach((t) -> {_tags.put(t.getKey(), t);});
     }
     
     @Override
@@ -46,13 +45,13 @@ public class TagsImpl implements ITags {
         return new TagImpl(_tags.get(key));
     }
 
-	@Override
-	public String getValue(String key) {
-		return _tags.get(key).getValue();
-	}
+    @Override
+    public String getValue(String key) {
+        return _tags.get(key).getValue();
+    }
 
-	@Override
-	public String toString() {
-		return _tags.toString();
-	}
+    @Override
+    public String toString() {
+        return _tags.toString();
+    }
 }

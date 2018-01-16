@@ -4,7 +4,7 @@ import com.thomsonreuters.aws.environment.elb.request.impl.DeregisterTargetsRequ
 
 public class DeregisterTargetsRequest {
 
-	public static IDeregisterTargetsRequest create() {
+    public static IDeregisterTargetsRequest create() {
         return new DeregisterTargetsRequestImpl();
     }
 }

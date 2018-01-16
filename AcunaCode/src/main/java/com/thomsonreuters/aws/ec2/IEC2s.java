@@ -14,7 +14,10 @@ public interface IEC2s {
     
     boolean contains(IEC2 ec2);
 
-	void add(IEC2 ec2);
-	
-	String toString();
+    void add(IEC2 ec2);
+
+    @Override
+    String toString();
+    
+    IEC2 remove(int idx);
 }

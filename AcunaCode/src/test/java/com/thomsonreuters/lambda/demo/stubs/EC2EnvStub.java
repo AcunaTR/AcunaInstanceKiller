@@ -4,7 +4,9 @@ import com.thomsonreuters.aws.ami.IAmis;
 import com.thomsonreuters.aws.environment.ec2.IEC2Env;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
+import com.thomsonreuters.aws.environment.ec2.request.ILaunchEC2sRequest;
 import com.thomsonreuters.aws.environment.ec2.request.ITerminateInstancesRequest;
+import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
 
 public class EC2EnvStub implements IEC2Env {
@@ -48,5 +50,11 @@ public class EC2EnvStub implements IEC2Env {
 	public void terminateInstances(ITerminateInstancesRequest req) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public IReservation launchEC2s(ILaunchEC2sRequest req) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -17,5 +17,4 @@ public interface ITags {
     ITag getTag(String key);
     
     String getValue(String key);
-    
 }

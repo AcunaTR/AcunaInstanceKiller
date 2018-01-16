@@ -4,7 +4,7 @@ import com.thomsonreuters.aws.environment.elb.request.impl.DescribeTargetGroupsR
 
 public class DescribeTargetGroupsRequest {
 
-	public static IDescribeTargetGroupsRequest create() {
+    public static IDescribeTargetGroupsRequest create() {
         return new DescribeTargetGroupsRequestImpl();
     }
 }

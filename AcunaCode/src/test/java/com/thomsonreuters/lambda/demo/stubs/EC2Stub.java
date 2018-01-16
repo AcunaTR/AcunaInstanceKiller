@@ -20,8 +20,7 @@ public class EC2Stub implements IEC2, IEC2Raw {
 
 	@Override
 	public String getInstanceID() {
-		// TODO Auto-generated method stub
-		return null;
+		return getTags().toString();
 	}
 
 	@Override

@@ -6,6 +6,7 @@
 package com.thomsonreuters.aws.ami.impl;
 
 import com.amazonaws.services.ec2.model.Image;
+
 import com.thomsonreuters.aws.ami.IAmi;
 import com.thomsonreuters.aws.ami.IAmis;
 
@@ -39,7 +40,7 @@ public class AmisImpl implements IAmis {
     }
     
     @Override
-	public String toString() {
-		return _amis.toString();
-	}
+    public String toString() {
+        return _amis.toString();
+    }
 }

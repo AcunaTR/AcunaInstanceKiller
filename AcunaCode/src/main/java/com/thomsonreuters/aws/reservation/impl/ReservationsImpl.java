@@ -3,6 +3,7 @@ package com.thomsonreuters.aws.reservation.impl;
 import java.util.List;
 
 import com.amazonaws.services.ec2.model.Reservation;
+
 import com.thomsonreuters.aws.reservation.IReservation;
 import com.thomsonreuters.aws.reservation.IReservations;
 
@@ -30,7 +31,7 @@ public class ReservationsImpl implements IReservations {
     }
     
     @Override
-	public String toString() {
-		return _resList.toString();
-	}
+    public String toString() {
+        return _resList.toString();
+    }
 }

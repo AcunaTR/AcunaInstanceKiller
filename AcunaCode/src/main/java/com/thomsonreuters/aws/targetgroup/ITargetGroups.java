@@ -6,6 +6,5 @@ public interface ITargetGroups {
     
     boolean isEmpty();
     
-    ITargetGroup get(int idx);
-
+    ITargetGroup get(int idx);	
 }

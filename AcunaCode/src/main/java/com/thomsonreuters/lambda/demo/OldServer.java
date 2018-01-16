@@ -2,33 +2,91 @@ package com.thomsonreuters.lambda.demo;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.thomsonreuters.aws.ec2.EC2s;
+import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.environment.elb.IELBEnv;
+import com.thomsonreuters.aws.environment.sns.ISNSEnv;
+import com.thomsonreuters.aws.environment.sns.SNSEnv;
 import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.InvalidTargetGroupsException;
 import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
+import com.thomsonreuters.lambda.demo.exceptions.NotEnoughServersException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFactory;
 
 public class OldServer {
 	
-	//static List<String> currentServerIDs = new ArrayList<>();
-	//static List<String> instanceIDs = new ArrayList<>();
-	
-	public static IEC2s identifyOldServers(IELBEnv elbEnv, int bufferDays, IEC2s ec2s, IDescribeTargetGroupsRequestFactory reqFactory) throws InvalidInstancesException, NoTargetGroupException, InvalidTargetGroupsException {
+	public static IEC2s identifyOldServers(IELBEnv elbEnv, 
+											int numberOfBackups, 
+											IEC2s ec2s, 
+											IDescribeTargetGroupsRequestFactory reqFactory,
+											String ERROR_TOPIC_ARN, ISNSEnv snsEnv) 
+							throws InvalidInstancesException, 
+							NoTargetGroupException, 
+							InvalidTargetGroupsException, 
+							NotEnoughServersException {
+		
+		if(ec2s.size() <= numberOfBackups) {
+			throw new NotEnoughServersException("Expected " + numberOfBackups + " but only had " + ec2s.size() + " servers ");
+		}
+		
 		Date today = new Date();
-		Date cutOffDate = getCutOffDate(today, bufferDays);
+		Date cutOffDate = getCutOffDate(today, numberOfBackups);
+		
 		IEC2s oldServers = findOldInstances(ec2s, cutOffDate);
-		if(!connectedToELB(elbEnv, oldServers, reqFactory)) {
-			return oldServers;
+		IEC2s youngServers = findRecentInstances(ec2s, cutOffDate);
+		
+		IEC2s toTerminate = findDoomedInstances(oldServers, youngServers, numberOfBackups);
+		
+		 
+
+		 
+		 if(youngServers.size() > numberOfBackups) {
+				String errorMessage = ("More backup servers running than anticipated - " + youngServers.size() + " servers");
+				snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
+		 }
+		 
+		
+		if(!connectedToELB(elbEnv, toTerminate, reqFactory)) {
+			return toTerminate;
 		}
 		throw new InvalidInstancesException("InvalidInstancesException - Servers still connected to ELB - number of servers = " + oldServers.size() + " - oldServers.tostring = " +oldServers.toString());
 
 	}
 	
+	public static IEC2s findDoomedInstances(IEC2s oldServers, IEC2s youngServers, int numberOfBackups) throws NotEnoughServersException {
+		while (youngServers.size() < numberOfBackups) {
+			 if (oldServers.isEmpty()) {
+				throw new NotEnoughServersException("Not enough servers running");
+			 }
+			 int mostRecentIdx = identifyMostRecent(oldServers);
+			 IEC2 temp = oldServers.remove(mostRecentIdx);
+			 youngServers.add(temp);
+		 }
+		return oldServers;
+	}
+
+	private static int identifyMostRecent(IEC2s oldServers) throws NotEnoughServersException {
+		if (oldServers.isEmpty()) {
+			throw new NotEnoughServersException("No old servers found");
+		}
+	
+		int index = 0;
+		Date time  = oldServers.get(0).getLaunchTime();
+		for (int i=0; i< oldServers.size(); i++) {
+			Date newTime  = oldServers.get(i).getLaunchTime();
+			if (newTime.after(time)) {
+				time = newTime;
+				index = i;
+			}
+		}
+		return index;
+	}
+
 	private static boolean connectedToELB(IELBEnv elbEnv, IEC2s oldServers, IDescribeTargetGroupsRequestFactory reqFactory) throws NoTargetGroupException, InvalidTargetGroupsException {
 		ITargetGroup targetGroup = ELBHandler.getTargetGroup(elbEnv, reqFactory);
 		List<String> targetIDs = targetGroup.getTargetIDs(elbEnv);
@@ -80,44 +138,4 @@ public class OldServer {
     	c.add(Calendar.DATE, (-1*buffer));
     	return c.getTime();
 	}
-	
-	
-	/* given buffer, list of instance
-	find cut off date // done
-	work out 5 days ago // done
-	find instances born before date // done
-	
-	
-	Possible algorithm for making sure exactly 4 old servers
-	
-	If >5 - sort by date, kill all but 5 youngest
-	  - risk - if 5 made today, could kill all old backups in error
-	 
-	  
-	ALTERNATIVELY - kill the old ones (>than buffer) and flag up that there were more servers than 5, and to be killed manually 
-	
-	
-	If killing more than 2 or 3 instances, put in some sort of check - Are you sure? flag
-	
-	*/	
-	
-	/*
-	private static  List<String> findBackupInstances(IEC2s instances, Date cutOffDate) {
-
-		currentServerIDs.clear();
-		for (int i = 0; i < instances.size(); i++) {
-			Date born = instances.get(i).getLaunchTime();
-    		if (born.after(cutOffDate)) {
-    			//IEC2 ec2 = instances.get(i);
-    			currentServerIDs.add(instances.get(i).getInstanceID());
-    			//currentServers.add(ec2);
-    		//backupServers.addAll(ec2);
-    		}
-		}
-		return currentServerIDs;
-	}
-
-	
-	*/
-
 }

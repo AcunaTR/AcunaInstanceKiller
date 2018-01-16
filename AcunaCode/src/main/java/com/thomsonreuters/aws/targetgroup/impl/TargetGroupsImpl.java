@@ -3,6 +3,7 @@ package com.thomsonreuters.aws.targetgroup.impl;
 import java.util.List;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.TargetGroup;
+
 import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 
@@ -30,7 +31,7 @@ public class TargetGroupsImpl implements ITargetGroups {
     }
     
     @Override
-	public String toString() {
-		return _targetGroups.toString();
-	}
+    public String toString() {
+        return _targetGroups.toString();
+    }
 }

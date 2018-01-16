@@ -1,6 +1,7 @@
 package com.thomsonreuters.lambda.demo.stubs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.amazonaws.services.ec2.model.Instance;
@@ -13,7 +14,7 @@ public class EC2sStub implements IEC2s, IEC2sRaw{
 	private List<IEC2> _ec2s;
 	
 	public EC2sStub(IEC2 ec2) {
-		_ec2s = new ArrayList<>();
+		_ec2s = new LinkedList<>();
 		_ec2s.add(ec2);
 		
 	}
@@ -97,6 +98,18 @@ public class EC2sStub implements IEC2s, IEC2sRaw{
 	public List<Instance> getRaw() {
 		
 		return null;
+	}
+
+	@Override
+	public IEC2 remove(int idx) {
+		IEC2 temp = null;
+		try {
+			_ec2s.remove(idx);
+		}catch(Exception e) {
+			int a = 23;
+			
+		}
+		return temp;
 	}
 
 	

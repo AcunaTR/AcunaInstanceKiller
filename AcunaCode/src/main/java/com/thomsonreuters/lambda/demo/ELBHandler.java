@@ -16,12 +16,12 @@ public class ELBHandler {
 		if(checkTargetGroups(res)) {
 			return res.get(0);
 		}
-		throw new InvalidTargetGroupsException("InvalidTargetGroupsException - Target group named - acuna-jenkins-load-ballancer not found");
+		throw new InvalidTargetGroupsException("Jenkins sandbox AcunaInstanceKiller error: InvalidTargetGroupsException - Target group named - acuna-jenkins-load-ballancer not found");
 	}
 
 	public static boolean checkTargetGroups(ITargetGroups res) throws NoTargetGroupException {
 		if (res.size() == 0) {
-			throw new NoTargetGroupException("NoTargetGroupException - No target group found with name - acuna-jenkins-load-ballancer");
+			throw new NoTargetGroupException("Jenkins sandbox AcunaInstanceKiller error: NoTargetGroupException - No target group found with name - acuna-jenkins-load-ballancer");
 		}
 	return true;
 	}

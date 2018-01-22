@@ -42,7 +42,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			
 			ISNSEnv snsEnv = SNSEnv.create();
 			
-			String errorMessage = "AcunaLambdaKiller failed to execute - Caught Exception - " + e.getMessage();
+			String errorMessage = "Jenkins sandbox AcunaInstanceKiller error: AcunaLambdaKiller failed to execute - Caught Exception - " + e.getMessage();
 			
 			context.getLogger().log(errorMessage);
 			snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
@@ -50,7 +50,7 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 		} catch (Exception e) {
 			ISNSEnv snsEnv = SNSEnv.create();
 			
-			String errorMessage = "AcunaLambdaKiller failed to execute - Caught General Exception - " + e.getMessage();
+			String errorMessage = "Jenkins sandbox AcunaInstanceKiller error: AcunaLambdaKiller failed to execute - Caught General Exception - " + e.getMessage();
 			
 			context.getLogger().log(errorMessage);
 			snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);

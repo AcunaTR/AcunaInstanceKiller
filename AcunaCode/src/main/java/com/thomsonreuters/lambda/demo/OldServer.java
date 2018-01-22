@@ -31,7 +31,7 @@ public class OldServer {
 							NotEnoughServersException {
 		
 		if(ec2s.size() <= numberOfBackups) {
-			throw new NotEnoughServersException("Expected " + numberOfBackups + " but only had " + ec2s.size() + " servers ");
+			throw new NotEnoughServersException("Jenkins sandbox AcunaInstanceKiller error: Expected " + numberOfBackups + " but only had " + ec2s.size() + " servers ");
 		}
 		
 		Date today = new Date();
@@ -46,7 +46,7 @@ public class OldServer {
 
 		 
 		 if(youngServers.size() > numberOfBackups) {
-				String errorMessage = ("More backup servers running than anticipated - " + youngServers.size() + " servers");
+				String errorMessage = ("Jenkins sandbox AcunaInstanceKiller error: More backup servers running than anticipated - " + youngServers.size() + " servers");
 				snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
 		 }
 		 
@@ -54,14 +54,14 @@ public class OldServer {
 		if(!connectedToELB(elbEnv, toTerminate, reqFactory)) {
 			return toTerminate;
 		}
-		throw new InvalidInstancesException("InvalidInstancesException - Servers still connected to ELB - number of servers = " + oldServers.size() + " - oldServers.tostring = " +oldServers.toString());
+		throw new InvalidInstancesException("Jenkins sandbox AcunaInstanceKiller error: InvalidInstancesException - Servers still connected to ELB - number of servers = " + oldServers.size() + " - oldServers.tostring = " +oldServers.toString());
 
 	}
 	
 	public static IEC2s findDoomedInstances(IEC2s oldServers, IEC2s youngServers, int numberOfBackups) throws NotEnoughServersException {
 		while (youngServers.size() < numberOfBackups) {
 			 if (oldServers.isEmpty()) {
-				throw new NotEnoughServersException("Not enough servers running");
+				throw new NotEnoughServersException("Jenkins sandbox AcunaInstanceKiller error: Not enough servers running");
 			 }
 			 int mostRecentIdx = identifyMostRecent(oldServers);
 			 IEC2 temp = oldServers.remove(mostRecentIdx);
@@ -72,7 +72,7 @@ public class OldServer {
 
 	private static int identifyMostRecent(IEC2s oldServers) throws NotEnoughServersException {
 		if (oldServers.isEmpty()) {
-			throw new NotEnoughServersException("No old servers found");
+			throw new NotEnoughServersException("Jenkins sandbox AcunaInstanceKiller error: No old servers found");
 		}
 	
 		int index = 0;

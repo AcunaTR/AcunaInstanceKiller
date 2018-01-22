@@ -30,18 +30,18 @@ public class InstanceHandler {
 		if (checkEc2s(ec2s, serverName)) {
 			return ec2s;
 		}
-		throw new InvalidInstancesException("InvalidInstancesException - EC2s returned did not match - " + serverName + " - Actual result - " + ec2s.get(0).getTags().getValue("Name"));
+		throw new InvalidInstancesException("Jenkins sandbox AcunaInstanceKiller error: InvalidInstancesException - EC2s returned did not match - " + serverName + " - Actual result - " + ec2s.get(0).getTags().getValue("Name"));
 		
 	}
 
 	// This was changed from private to public to allow testing of EmptyReservationException from this access point
 	public static boolean checkEc2s(IEC2s ec2s, String serverName) throws EmptyReservationException { // separate utility class and tests?
 		if (ec2s == null) {
-			throw new EmptyReservationException("Reservation contains no instances");
+			throw new EmptyReservationException("Jenkins sandbox AcunaInstanceKiller error: Reservation contains no instances");
 		
 		}
 		if (ec2s.isEmpty()) {
-			throw new EmptyReservationException("Reservation contains no instances");
+			throw new EmptyReservationException("Jenkins sandbox AcunaInstanceKiller error: Reservation contains no instances");
 		}
 		
 		for (int i = 0; i < ec2s.size(); i++) {
@@ -55,15 +55,15 @@ public class InstanceHandler {
 
 	private static IEC2s parsingEC2s(IReservations res) throws EmptyReservationException, NoReservationException {// separate utility class and tests?
 		if (res == null) { 
-			throw new NoReservationException("NoReservationException - No reservations found");
+			throw new NoReservationException("Jenkins sandbox AcunaInstanceKiller error: NoReservationException - No reservations found");
 		}
 		if (res.isEmpty()) {
-		throw new EmptyReservationException("EmptyReservationException - No reservations found");
+		throw new EmptyReservationException("Jenkins sandbox AcunaInstanceKiller error: EmptyReservationException - No reservations found");
 		}
 		
 		IEC2s ec2s = res.get(0).getInstances();
 		if ((ec2s == null) || (ec2s.isEmpty())) {
-			throw new EmptyReservationException("EmptyReservationException - Reservation contains no instances");
+			throw new EmptyReservationException("Jenkins sandbox AcunaInstanceKiller error: EmptyReservationException - Reservation contains no instances");
 		}
 		
 		IEC2s fullList = ec2s.clone();
@@ -71,7 +71,7 @@ public class InstanceHandler {
 		for (int i = 1; i <res.size(); i++) {
 			ec2s = res.get(i).getInstances();
 			if ((ec2s == null) || (ec2s.isEmpty())) {
-				throw new EmptyReservationException("EmptyReservationException - Reservation contains no instances");
+				throw new EmptyReservationException("Jenkins sandbox AcunaInstanceKiller error: EmptyReservationException - Reservation contains no instances");
 			}
 			fullList.addAll(ec2s);
 		}

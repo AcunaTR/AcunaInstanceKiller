@@ -15,6 +15,7 @@ import com.thomsonreuters.lambda.demo.exceptions.InvalidTargetGroupsException;
 import com.thomsonreuters.lambda.demo.exceptions.NoInstancesException;
 import com.thomsonreuters.lambda.demo.exceptions.NoReservationException;
 import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
+import com.thomsonreuters.lambda.demo.exceptions.NotEnoughServersException;
 import com.thomsonreuters.lambda.demo.factories.IDescribeEC2sRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFactory;
 import com.thomsonreuters.lambda.demo.factories.ITerminateInstancesRequestFactory;
@@ -41,12 +42,20 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 			
 			ISNSEnv snsEnv = SNSEnv.create();
 			
-			String errorMessage = "AcunaLambdaKillter failed to execute - Caught Exception - " + e.getMessage();
+			String errorMessage = "Jenkins sandbox AcunaInstanceKiller error: AcunaLambdaKiller failed to execute - Caught Exception - " + e.getMessage();
 			
 			context.getLogger().log(errorMessage);
 			snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
 			return errorMessage;
-		}      
+		} catch (Exception e) {
+			ISNSEnv snsEnv = SNSEnv.create();
+			
+			String errorMessage = "Jenkins sandbox AcunaInstanceKiller error: AcunaLambdaKiller failed to execute - Caught General Exception - " + e.getMessage();
+			
+			context.getLogger().log(errorMessage);
+			snsEnv.publish(ERROR_TOPIC_ARN, errorMessage);
+			return errorMessage;
+		}
                
         return "woot!";
     }  
@@ -59,10 +68,11 @@ public class LambdaFunctionHandler implements RequestHandler<Object, String> {
 
     }
 
-    private IEC2s getOldServers(IEC2s allServers) throws InvalidInstancesException, NoTargetGroupException, InvalidTargetGroupsException {
+    private IEC2s getOldServers(IEC2s allServers) throws InvalidInstancesException, NoTargetGroupException, InvalidTargetGroupsException, NotEnoughServersException {
     	IELBEnv elbEnv = ELBEnv.create();
         IDescribeTargetGroupsRequestFactory reqFactory = new DescribeTargetGroupsRequestFactory();
-        return OldServer.identifyOldServers(elbEnv, BUFFER, allServers, reqFactory);
+        ISNSEnv snsEnv = SNSEnv.create();
+        return OldServer.identifyOldServers(elbEnv, BUFFER, allServers, reqFactory, ERROR_TOPIC_ARN, snsEnv);
     }
 
     private void terminateServers(IEC2s servers) {

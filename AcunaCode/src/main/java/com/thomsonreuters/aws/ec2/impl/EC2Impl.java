@@ -3,6 +3,7 @@ package com.thomsonreuters.aws.ec2.impl;
 import java.util.Date;
 
 import com.amazonaws.services.ec2.model.Instance;
+
 import com.thomsonreuters.aws.ec2.IEC2;
 import com.thomsonreuters.aws.iam.instanceprofile.IInstanceProfile;
 import com.thomsonreuters.aws.iam.instanceprofile.impl.InstanceProfileImpl;
@@ -18,10 +19,10 @@ public class EC2Impl implements IEC2, IEC2Raw {
     }
 
     public EC2Impl() {
-		_ec2 = new Instance();
-	}
+        _ec2 = new Instance();
+    }
 
-	@Override
+    @Override
     public String getInstanceID() {
         return _ec2.getInstanceId();
     }
@@ -51,13 +52,13 @@ public class EC2Impl implements IEC2, IEC2Raw {
         return new InstanceProfileImpl(_ec2.getIamInstanceProfile());
     }
 
-	@Override
-	public Instance getRaw() {
-		return _ec2;
-	}	
-	
-	@Override
-	public String toString() {
-		return _ec2.toString();
-	}
+    @Override
+    public Instance getRaw() {
+        return _ec2;
+    }	
+
+    @Override
+    public String toString() {
+        return _ec2.toString();
+    }
 }

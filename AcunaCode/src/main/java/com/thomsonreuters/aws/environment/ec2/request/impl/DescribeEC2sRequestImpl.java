@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
 import com.amazonaws.services.ec2.model.Filter;
+
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
 import com.thomsonreuters.aws.filter.IFilter;
 import com.thomsonreuters.aws.filter.IFilters;
@@ -14,7 +15,7 @@ import com.thomsonreuters.aws.filter.impl.IFiltersRaw;
 public class DescribeEC2sRequestImpl implements IDescribeEC2sRequest, IDescribeEC2sRequestRaw{
 
     private final DescribeInstancesRequest _req;
-    private List<Filter> _filters;
+    private final List<Filter> _filters;
 	
     public DescribeEC2sRequestImpl() {
         _req = new DescribeInstancesRequest();
@@ -40,7 +41,7 @@ public class DescribeEC2sRequestImpl implements IDescribeEC2sRequest, IDescribeE
     }
     
     @Override
-	public String toString() {
-		return _req.toString() + _filters.toString();
-	}
+    public String toString() {
+        return _req.toString() + _filters.toString();
+    }
 }

@@ -4,8 +4,5 @@ import java.util.List;
 
 public interface ITerminateInstancesRequest {
 	
-	void setInstanceIds(List<String> instanceIds);
-	
-	
-
+    void setInstanceIds(List<String> instanceIds);
 }

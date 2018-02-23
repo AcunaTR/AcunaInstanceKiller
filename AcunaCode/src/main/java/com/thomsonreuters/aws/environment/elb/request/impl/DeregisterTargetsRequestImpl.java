@@ -17,7 +17,7 @@ public class DeregisterTargetsRequestImpl implements IDeregisterTargetsRequest, 
     }
     
     @Override
-	public String toString() {
-		return _req.toString();
-	}
+    public String toString() {
+        return _req.toString();
+    }
 }

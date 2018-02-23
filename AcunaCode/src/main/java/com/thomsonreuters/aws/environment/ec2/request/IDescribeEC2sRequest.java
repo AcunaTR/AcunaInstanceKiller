@@ -5,7 +5,6 @@ import com.thomsonreuters.aws.filter.IFilters;
 
 public interface IDescribeEC2sRequest {
 
-	void addFilter(IFilter filter);
-	void addFilters(IFilters filters);
-	
+    void addFilter(IFilter filter);
+    void addFilters(IFilters filters);	
 }

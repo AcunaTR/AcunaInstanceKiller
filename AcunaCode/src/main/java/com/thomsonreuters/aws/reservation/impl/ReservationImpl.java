@@ -1,6 +1,7 @@
 package com.thomsonreuters.aws.reservation.impl;
 
 import com.amazonaws.services.ec2.model.Reservation;
+
 import com.thomsonreuters.aws.ec2.IEC2s;
 import com.thomsonreuters.aws.ec2.impl.EC2sImpl;
 import com.thomsonreuters.aws.reservation.IReservation;
@@ -19,7 +20,7 @@ public class ReservationImpl implements IReservation {
     }
     
     @Override
-	public String toString() {
-		return _res.toString();
-	}
+    public String toString() {
+        return _res.toString();
+    }
 }

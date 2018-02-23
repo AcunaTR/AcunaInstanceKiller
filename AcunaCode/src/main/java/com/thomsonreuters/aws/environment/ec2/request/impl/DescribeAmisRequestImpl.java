@@ -6,6 +6,7 @@
 package com.thomsonreuters.aws.environment.ec2.request.impl;
 
 import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+
 import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
 import com.thomsonreuters.aws.filter.IFilters;
 import com.thomsonreuters.aws.filter.impl.IFiltersRaw;
@@ -34,7 +35,7 @@ public class DescribeAmisRequestImpl implements IDescribeAmisRequest, IDescribeA
     }
     
     @Override
-	public String toString() {
-		return _req.toString();
-	}
+    public String toString() {
+        return _req.toString();
+    }
 }

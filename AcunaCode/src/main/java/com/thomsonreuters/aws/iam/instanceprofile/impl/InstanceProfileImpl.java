@@ -1,6 +1,7 @@
 package com.thomsonreuters.aws.iam.instanceprofile.impl;
 
 import com.amazonaws.services.ec2.model.IamInstanceProfile;
+
 import com.thomsonreuters.aws.iam.instanceprofile.IInstanceProfile;
 
 public class InstanceProfileImpl implements IInstanceProfile {
@@ -22,7 +23,7 @@ public class InstanceProfileImpl implements IInstanceProfile {
     }
     
     @Override
-	public String toString() {
-		return _instProf.toString();
-	}
+    public String toString() {
+        return _instProf.toString();
+    }
 }

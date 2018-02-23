@@ -4,6 +4,5 @@ import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthR
 
 public interface IDescribeTargetHealthRequestRaw {
 
-	DescribeTargetHealthRequest getRaw();
-
+    DescribeTargetHealthRequest getRaw();
 }

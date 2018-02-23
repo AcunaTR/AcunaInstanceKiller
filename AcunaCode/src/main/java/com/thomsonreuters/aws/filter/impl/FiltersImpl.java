@@ -6,11 +6,12 @@
 package com.thomsonreuters.aws.filter.impl;
 
 import com.amazonaws.services.ec2.model.Filter;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.thomsonreuters.aws.filter.IFilter;
 import com.thomsonreuters.aws.filter.IFilters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -59,7 +60,7 @@ public class FiltersImpl implements IFilters, IFiltersRaw {
     }
     
     @Override
-	public String toString() {
-		return _filters.toString();
-	}
+    public String toString() {
+        return _filters.toString();
+    }
 }

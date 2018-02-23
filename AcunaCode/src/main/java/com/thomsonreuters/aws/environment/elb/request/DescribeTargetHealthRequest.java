@@ -4,7 +4,7 @@ import com.thomsonreuters.aws.environment.elb.request.impl.DescribeTargetHealthR
 
 public class DescribeTargetHealthRequest {
 
-	public static IDescribeTargetHealthRequest create() {
+    public static IDescribeTargetHealthRequest create() {
         return new DescribeTargetHealthRequestImpl();
     }
 }

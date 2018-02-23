@@ -19,29 +19,29 @@ public class TargetGroupImpl implements ITargetGroup {
         _targetGroup = targetGroup;
     }
 
-	@Override
-	public String getArn() {
-		return _targetGroup.getTargetGroupArn();
-	}
+    @Override
+    public String getArn() {
+        return _targetGroup.getTargetGroupArn();
+    }
 
-	@Override
-	public List<String> getTargetIDs(IELBEnv elbEnv) {
-		IDescribeTargetHealthRequest request = DescribeTargetHealthRequest.create();
-		request.setArn(_targetGroup.getTargetGroupArn());
-		
-		DescribeTargetHealthResult res = elbEnv.describeTargetHealth(request);
-		
+    @Override
+    public List<String> getTargetIDs(IELBEnv elbEnv) {
+        IDescribeTargetHealthRequest request = DescribeTargetHealthRequest.create();
+        request.setArn(_targetGroup.getTargetGroupArn());
+
+        DescribeTargetHealthResult res = elbEnv.describeTargetHealth(request);
+
         List <TargetHealthDescription> targetHealth = res.getTargetHealthDescriptions();
         List<String> ids = new ArrayList<>();
-        
-        for (TargetHealthDescription targetH : targetHealth) {
-            ids.add(targetH.getTarget().getId());
-        }
-		return ids;
-	}
 
-	@Override
-	public String toString() {
-		return _targetGroup.toString();
-	}
+        targetHealth.forEach((targetH) -> {
+            ids.add(targetH.getTarget().getId());
+        });
+        return ids;
+    }
+
+    @Override
+    public String toString() {
+        return _targetGroup.toString();
+    }
 }

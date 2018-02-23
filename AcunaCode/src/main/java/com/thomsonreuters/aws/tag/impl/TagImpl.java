@@ -6,6 +6,7 @@
 package com.thomsonreuters.aws.tag.impl;
 
 import com.amazonaws.services.ec2.model.Tag;
+
 import com.thomsonreuters.aws.tag.ITag;
 
 /**
@@ -35,7 +36,7 @@ public class TagImpl implements ITag {
     }
     
     @Override
-	public String toString() {
-		return _tag.toString();
-	}
+    public String toString() {
+        return _tag.toString();
+    }
 }

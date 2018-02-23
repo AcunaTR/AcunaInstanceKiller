@@ -6,8 +6,7 @@ import com.thomsonreuters.aws.environment.elb.IELBEnv;
 
 public interface ITargetGroup {
 
-	String getArn();
-	
-	List<String> getTargetIDs(IELBEnv elbEnv);
-	
+    String getArn();
+
+    List<String> getTargetIDs(IELBEnv elbEnv);
 }

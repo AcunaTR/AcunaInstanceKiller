@@ -4,7 +4,7 @@ import com.thomsonreuters.aws.environment.sns.impl.SNSEnvImpl;
 
 public class SNSEnv {
 
-	public static ISNSEnv create() {
+    public static ISNSEnv create() {
         return new SNSEnvImpl();
     }
 }

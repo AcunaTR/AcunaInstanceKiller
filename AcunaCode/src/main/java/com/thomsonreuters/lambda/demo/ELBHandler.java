@@ -16,12 +16,16 @@ public class ELBHandler {
 		if(checkTargetGroups(res)) {
 			return res.get(0);
 		}
+
 		throw new InvalidTargetGroupsException("InvalidTargetGroupsException - Target group named - acuna-jenkins-target-group not found");
+
 	}
 
 	public static boolean checkTargetGroups(ITargetGroups res) throws NoTargetGroupException {
 		if (res.size() == 0) {
+
 			throw new NoTargetGroupException("NoTargetGroupException - No target group found with name - acuna-jenkins-target-group");
+
 		}
 	return true;
 	}

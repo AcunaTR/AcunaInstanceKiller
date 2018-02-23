@@ -11,17 +11,17 @@ import com.thomsonreuters.lambda.demo.factories.IDescribeTargetGroupsRequestFact
 public class ELBHandler {
 
 	public static ITargetGroup getTargetGroup(IELBEnv elbEnv, IDescribeTargetGroupsRequestFactory reqFactory) throws NoTargetGroupException, InvalidTargetGroupsException {
-		IDescribeTargetGroupsRequest req =  createRequest(reqFactory, "acuna-jenkins-load-ballancer");
+		IDescribeTargetGroupsRequest req =  createRequest(reqFactory, "acuna-jenkins-target-group");
 		ITargetGroups res = runApiCall(req, elbEnv);
 		if(checkTargetGroups(res)) {
 			return res.get(0);
 		}
-		throw new InvalidTargetGroupsException("InvalidTargetGroupsException - Target group named - acuna-jenkins-load-ballancer not found");
+		throw new InvalidTargetGroupsException("InvalidTargetGroupsException - Target group named - acuna-jenkins-target-group not found");
 	}
 
 	public static boolean checkTargetGroups(ITargetGroups res) throws NoTargetGroupException {
 		if (res.size() == 0) {
-			throw new NoTargetGroupException("NoTargetGroupException - No target group found with name - acuna-jenkins-load-ballancer");
+			throw new NoTargetGroupException("NoTargetGroupException - No target group found with name - acuna-jenkins-target-group");
 		}
 	return true;
 	}

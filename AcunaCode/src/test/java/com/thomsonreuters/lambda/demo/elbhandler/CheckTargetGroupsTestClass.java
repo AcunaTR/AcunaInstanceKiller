@@ -1,24 +1,12 @@
 package com.thomsonreuters.lambda.demo.elbhandler;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetGroupsRequest;
-import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 import com.thomsonreuters.lambda.demo.ELBHandler;
-import com.thomsonreuters.lambda.demo.elbhandler.CheckTargetGroupsStubs.ELBEnvStub;
-import com.thomsonreuters.lambda.demo.exceptions.InvalidTargetGroupsException;
 import com.thomsonreuters.lambda.demo.exceptions.NoTargetGroupException;
-import com.thomsonreuters.lambda.demo.stubs.DescribeTargetGroupsRequestFactoryStub;
-import com.thomsonreuters.lambda.demo.stubs.DescribeTargetGroupsRequestStub;
-import com.thomsonreuters.lambda.demo.stubs.TargetGroupStub;
 import com.thomsonreuters.lambda.demo.stubs.TargetGroupsStub;
 
 public class CheckTargetGroupsTestClass {

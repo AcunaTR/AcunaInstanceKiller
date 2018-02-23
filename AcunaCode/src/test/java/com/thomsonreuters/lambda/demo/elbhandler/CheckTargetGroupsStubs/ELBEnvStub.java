@@ -1,16 +1,10 @@
 package com.thomsonreuters.lambda.demo.elbhandler.CheckTargetGroupsStubs;
 
 import com.amazonaws.services.elasticloadbalancingv2.model.DescribeTargetHealthResult;
-import com.thomsonreuters.aws.ami.IAmis;
-import com.thomsonreuters.aws.environment.ec2.IEC2Env;
-import com.thomsonreuters.aws.environment.ec2.request.IDescribeAmisRequest;
-import com.thomsonreuters.aws.environment.ec2.request.IDescribeEC2sRequest;
-import com.thomsonreuters.aws.environment.ec2.request.ITerminateInstancesRequest;
 import com.thomsonreuters.aws.environment.elb.IELBEnv;
 import com.thomsonreuters.aws.environment.elb.request.IDeregisterTargetsRequest;
 import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetGroupsRequest;
 import com.thomsonreuters.aws.environment.elb.request.IDescribeTargetHealthRequest;
-import com.thomsonreuters.aws.reservation.IReservations;
 import com.thomsonreuters.aws.targetgroup.ITargetGroup;
 import com.thomsonreuters.aws.targetgroup.ITargetGroups;
 import com.thomsonreuters.lambda.demo.stubs.TargetGroupStub;

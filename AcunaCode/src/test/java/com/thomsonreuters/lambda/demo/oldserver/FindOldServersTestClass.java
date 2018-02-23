@@ -175,7 +175,7 @@ public class FindOldServersTestClass {
 		List<IEC2> newServers = new LinkedList<>();
 		newServers.add(ec2b);
 		newServers.add(ec2c);
-		EC2sStub ec2Keep = new EC2sStub(newServers);
+		IEC2s ec2Keep = new EC2sStub(newServers);
 		
 		Date previously = new GregorianCalendar(2017, Calendar.DECEMBER, 1).getTime();
 		IEC2 ec2d = new EC2Stub("ec2d",previously);

@@ -47,7 +47,7 @@ public class DescribeTargetGroupRequestTestClass {
 			ELBHandler.getTargetGroup(elbEnv, reqFactory);
 			fail("Expected NullPointerException not thrown");
 		} catch (NullPointerException e) {
-			Assert.assertEquals("acuna-jenkins-load-ballancer",reqFactory.getName());
+			Assert.assertEquals("acuna-jenkins-target-group",reqFactory.getName());
 		} catch (Exception e) {
 			fail("Unexpected exception - " + reqFactory.getName() +" - " + e.getMessage());
 		}

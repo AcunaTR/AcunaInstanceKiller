@@ -16,7 +16,6 @@ public interface IEC2s {
 
     void add(IEC2 ec2);
 
-    @Override
     String toString();
     
     IEC2 remove(int idx);
